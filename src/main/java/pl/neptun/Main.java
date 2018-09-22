@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example;
+package pl.neptun;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
