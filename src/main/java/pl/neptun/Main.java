@@ -67,7 +67,7 @@ public class Main {
   private EntityManagerFactory emf;
 
   private void initializeHibernate() {
-	  emf = Persistence.createEntityManagerFactory("UnitNeptunFCM");
+	  emf = Persistence.createEntityManagerFactory("UnitNeptunFCMTest");
   }
   
   public static void main(String[] args) throws Exception {
