@@ -126,7 +126,7 @@ public class Main {
     	model.put("records", output);
       return "db";
     } catch (Exception e) {
-    	model.put("message", e.getMessage());
+    	model.put("message", "Jakis blad!!!" + e.getMessage());
         return "error";
     }
   }
