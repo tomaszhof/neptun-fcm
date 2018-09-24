@@ -18,6 +18,9 @@ package pl.neptun;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+
+import pl.neptun.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -27,6 +30,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.sql.DataSource;
+import javax.transaction.UserTransaction;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,7 +41,12 @@ import java.util.Map;
 
 import static javax.measure.unit.SI.KILOGRAM;
 import javax.measure.quantity.Mass;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import org.jscience.physics.model.RelativisticModel;
+import org.hibernate.tool.hbm2ddl.TableMetadata;
 import org.jscience.physics.amount.Amount;
 
 
@@ -49,8 +59,15 @@ public class Main {
 
   @Autowired
   private DataSource dataSource;
+  
+  private static EntityManagerFactory emf;
 
+  private static void initializeHibernate() {
+	  emf = Persistence.createEntityManagerFactory("UnitNeptunFCM");
+  }
+  
   public static void main(String[] args) throws Exception {
+	initializeHibernate();
     SpringApplication.run(Main.class, args);
   }
 
@@ -76,6 +93,22 @@ public class Main {
       return "db";
     } catch (Exception e) {
       model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+  
+  @RequestMapping("/test")
+  String test() {
+    try {
+    	EntityManager em = emf.createEntityManager();
+    	em.getTransaction().begin();
+    	User testUser = new User();
+    	testUser.setFirstName("Jan");
+    	testUser.setLastName("Kowalski");
+    	em.persist(testUser);
+    	em.getTransaction().commit();
+      return "db";
+    } catch (Exception e) {
       return "error";
     }
   }
