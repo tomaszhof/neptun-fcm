@@ -37,6 +37,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static javax.measure.unit.SI.KILOGRAM;
@@ -44,6 +45,9 @@ import javax.measure.quantity.Mass;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.jscience.physics.model.RelativisticModel;
 import org.hibernate.tool.hbm2ddl.TableMetadata;
@@ -98,7 +102,7 @@ public class Main {
   }
   
   @RequestMapping("/test")
-  String test() {
+  String test(Map<String, Object> model) {
     try {
     	EntityManager em = emf.createEntityManager();
     	em.getTransaction().begin();
@@ -107,10 +111,23 @@ public class Main {
     	testUser.setLastName("Kowalski");
     	em.persist(testUser);
     	em.getTransaction().commit();
-    	em.close();
+    	
+    	CriteriaBuilder builder = em.getCriteriaBuilder();
+    	CriteriaQuery<User> criteria = builder.createQuery(User.class);
+    	Root<User> personRoot = criteria.from(User.class);
+    	criteria.select(personRoot);
+    	criteria.where( builder.equal( personRoot.get("firstName"), "Kowalski" ) );
+    	List<User> people = em.createQuery( criteria ).getResultList();
+    	
+    	ArrayList<String> output = new ArrayList<String>();
+    	for (User u : people) {
+    		output.add("User from db: " + u.getFirstName() + " " + u.getLastName()+";");
+    	}
+    	model.put("records", output);
       return "db";
     } catch (Exception e) {
-      return "error";
+    	model.put("message", e.getMessage());
+        return "error";
     }
   }
   
