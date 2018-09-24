@@ -107,6 +107,7 @@ public class Main {
     	testUser.setLastName("Kowalski");
     	em.persist(testUser);
     	em.getTransaction().commit();
+    	em.close();
       return "db";
     } catch (Exception e) {
       return "error";
