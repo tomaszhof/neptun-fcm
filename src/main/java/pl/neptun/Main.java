@@ -64,14 +64,13 @@ public class Main {
   @Autowired
   private DataSource dataSource;
   
-  private static EntityManagerFactory emf;
+  private EntityManagerFactory emf;
 
-  private static void initializeHibernate() {
+  private void initializeHibernate() {
 	  emf = Persistence.createEntityManagerFactory("UnitNeptunFCM");
   }
   
   public static void main(String[] args) throws Exception {
-	initializeHibernate();
     SpringApplication.run(Main.class, args);
   }
 
@@ -103,23 +102,29 @@ public class Main {
   
   @RequestMapping("/test")
   String test(Map<String, Object> model) {
+    ArrayList<String> output = new ArrayList<String>();
     try {
+    	initializeHibernate();
+    	output.add("Initialized Hibernate connection.");
     	EntityManager em = emf.createEntityManager();
     	em.getTransaction().begin();
+    	output.add("Transaction began.");
     	User testUser = new User();
     	testUser.setFirstName("Jan");
     	testUser.setLastName("Kowalski");
+    	output.add("before persist.");
     	em.persist(testUser);
+    	output.add("after persist.");
     	em.getTransaction().commit();
     	
     	CriteriaBuilder builder = em.getCriteriaBuilder();
     	CriteriaQuery<User> criteria = builder.createQuery(User.class);
     	Root<User> personRoot = criteria.from(User.class);
     	criteria.select(personRoot);
-    	criteria.where( builder.equal( personRoot.get("firstName"), "Kowalski" ) );
+    	criteria.where( builder.like(personRoot.get("firstName"), "Kowalski" ) );
     	List<User> people = em.createQuery( criteria ).getResultList();
     	
-    	ArrayList<String> output = new ArrayList<String>();
+    	
     	for (User u : people) {
     		output.add("User from db: " + u.getFirstName() + " " + u.getLastName()+";");
     	}
