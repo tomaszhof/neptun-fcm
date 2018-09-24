@@ -30,7 +30,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.sql.DataSource;
-import javax.transaction.UserTransaction;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
