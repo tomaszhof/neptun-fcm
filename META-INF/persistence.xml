@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+    <persistence-unit name="UnitNeptunFCM" transaction-type="RESOURCE_LOCAL">
+    <class>pl.neptun.model.User</class>
+    <properties>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+      <property name="javax.persistence.jdbc.url"    value="jdbc:postgres://ec2-54-83-50-145.compute-1.amazonaws.com:5432/d7pqg64f80rf1e" />
+      <property name="javax.persistence.jdbc.user" value="brhwlohfhknwuy" />
+      <property name="javax.persistence.jdbc.password" value="8f45da57857e7b8652bb2863517997b490491446709ff240781b11303882cc5a" />
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+      <property name="show_sql" value="true"/>
+      <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
+    </properties>
+  </persistence-unit>
+</persistence>
