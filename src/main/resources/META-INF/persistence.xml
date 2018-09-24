@@ -7,7 +7,7 @@
     <class>pl.neptun.model.User</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-      <property name="javax.persistence.jdbc.url"    value="jdbc:postgres://ec2-54-83-50-145.compute-1.amazonaws.com:5432/d7pqg64f80rf1e" />
+      <property name="javax.persistence.jdbc.url"    value="jdbc:postgres://postgresql-shaped-31077" />
       <property name="javax.persistence.jdbc.user" value="brhwlohfhknwuy" />
       <property name="javax.persistence.jdbc.password" value="8f45da57857e7b8652bb2863517997b490491446709ff240781b11303882cc5a" />
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
