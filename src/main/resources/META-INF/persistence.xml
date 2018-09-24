@@ -18,7 +18,7 @@
     <class>pl.neptun.model.User</class>
      <jar-file>neptun-fcm-1.0.jar</jar-file>
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-     <jta-data-source>java:/DefaultDS</jta-data-source>
+     <jta-data-source>java:/pg:psql postgresql-shaped-31077</jta-data-source>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
       <property name="hibernate.hbm2ddl.auto" value="create"/>
