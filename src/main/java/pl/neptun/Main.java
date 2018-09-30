@@ -76,7 +76,7 @@ public class Main {
 //	      }
 //	      // You can put more code in here to populate configOverrides...
 //	  }
-//	  emf = Persistence.createEntityManagerFactory("UnitNeptunFCMTest", configOverrides);
+	  emf = Persistence.createEntityManagerFactory("UnitNeptunFCMTest", configOverrides);
   }
   
   public static void main(String[] args) throws Exception {
