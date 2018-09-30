@@ -70,7 +70,7 @@ public class Main {
 	  Map<String, Object> configOverrides = new HashMap<String, Object>();
 	  for (String envName : env.keySet()) {
 	      if (envName.contains("JDBC_DATABASE_URL")) {
-	          configOverrides.put("hibernate.connection.url", env.get(envName));    
+	          configOverrides.put("hibernate.connection.url", "BUKA");//env.get(envName));    
 	      }
 	      // You can put more code in here to populate configOverrides...
 	  }
