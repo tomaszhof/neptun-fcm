@@ -36,6 +36,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +50,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.jscience.physics.model.RelativisticModel;
-import org.hibernate.tool.hbm2ddl.TableMetadata;
 import org.jscience.physics.amount.Amount;
 
 
@@ -66,7 +66,15 @@ public class Main {
   private EntityManagerFactory emf;
 
   private void initializeHibernate() {
-	  emf = Persistence.createEntityManagerFactory("UnitNeptunFCMTest");
+	  Map<String, String> env = System.getenv();
+	  Map<String, Object> configOverrides = new HashMap<String, Object>();
+	  for (String envName : env.keySet()) {
+	      if (envName.contains("JDBC_DATABASE_URL")) {
+	          configOverrides.put("hibernate.connection.url", env.get(envName));    
+	      }
+	      // You can put more code in here to populate configOverrides...
+	  }
+	  emf = Persistence.createEntityManagerFactory("UnitNeptunFCMTest", configOverrides);
   }
   
   public static void main(String[] args) throws Exception {
