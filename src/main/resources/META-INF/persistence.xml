@@ -24,7 +24,7 @@
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
             <property name="hibernate.connection.charSet" value="UTF-8"/>
-            <property name="hibernate.connection.url" value="jdbc:postgresql://ec2-54-83-50-145.compute-1.amazonaws.com:5432/d7pqg64f80rf1e?user=brhwlohfhknwuy&password=8f45da57857e7b8652bb2863517997b490491446709ff240781b11303882cc5a&sslmode=require"/>E
+            <property name="hibernate.connection.url" value="jdbc:postgresql://ec2-54-83-50-145.compute-1.amazonaws.com:5432/d7pqg64f80rf1e?user=brhwlohfhknwuy&amp;password=8f45da57857e7b8652bb2863517997b490491446709ff240781b11303882cc5a&amp;sslmode=require"/>E
             <property name="hibernate.connection.user" value="brhwlohfhknwuy"/>
             <property name="hibernate.connection.password" value="$8f45da57857e7b8652bb2863517997b490491446709ff240781b11303882cc5a"/>
             <!-- Uncomment the following two properties for JBoss only -->
