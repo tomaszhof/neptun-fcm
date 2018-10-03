@@ -68,15 +68,15 @@ public class Main {
   private void initializeHibernate() {
 	  Map<String, String> env = System.getenv();
 	  Map<String, Object> configOverrides = new HashMap<String, Object>();
-	  configOverrides.put("hibernate.connection.url", dbUrl);
-	  System.out.println("Set hibernate connection url: " + dbUrl);
+	  //configOverrides.put("hibernate.connection.url", dbUrl);
+	  //System.out.println("Set hibernate connection url: " + dbUrl);
 //	  for (String envName : env.keySet()) {
 //	      if (envName.contains("JDBC_DATABASE_URL")) {
 //	          configOverrides.put("hibernate.connection.url", "BUKA");//env.get(envName));    
 //	      }
 //	      // You can put more code in here to populate configOverrides...
 //	  }
-	  emf = Persistence.createEntityManagerFactory("UnitNeptunFCMTest", configOverrides);
+	  emf = Persistence.createEntityManagerFactory("UnitNeptunFCMTest");//, configOverrides);
   }
   
   public static void main(String[] args) throws Exception {
