@@ -76,7 +76,9 @@ public class Main {
 //	      }
 //	      // You can put more code in here to populate configOverrides...
 //	  }
+	  System.out.println("Set hibernate connection...");
 	  emf = Persistence.createEntityManagerFactory("UnitNeptunFCMTest");//, configOverrides);
+	  System.out.println("success.");
   }
   
   public static void main(String[] args) throws Exception {
