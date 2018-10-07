@@ -159,49 +159,49 @@ public class Main {
 		Resource resource = new ClassPathResource("MODEL_Q_QUESTIONS.csv");
 		ArrayList<String> output = new ArrayList<String>();
 		output.add("loading questions...");
-		try {
-			output.add("loaded data - questions");
-			InputStream resourceInputStream = resource.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(resourceInputStream, "UTF-8"));
-
-			String strLine;
-			initializeHibernate();
-			output.add("Initialized Hibernate connection.");
-			EntityManager em = emf.createEntityManager();
-			em.getTransaction().begin();
-
-			// Read File Line By Line
-			while ((strLine = br.readLine()) != null) {
-				// Print the content on the console
-				String questionCode = null;
-				String questionText = null;
-
-				String[] data = strLine.split(";");
-				if (data.length > 0) {
-					questionCode = data[0];
-				}
-				if (data.length > 1) {
-					questionText = data[1];
-				}
-				if ((questionCode != null) && (questionText != null)) {
-					Question q = new Question();
-					q.setCode(questionCode);
-					q.setText(questionText);
-					output.add("before persist.");
-					em.persist(q);
-					output.add("after persist.");
-				}
-				output.add(strLine);
-			}
-
-			// Close the input stream
-			br.close();
-			em.getTransaction().commit();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			model.put("message", "Jakis blad!!!" + e.getMessage());
-			e.printStackTrace();
-		}
+//		try {
+//			output.add("loaded data - questions");
+//			InputStream resourceInputStream = resource.getInputStream();
+//			BufferedReader br = new BufferedReader(new InputStreamReader(resourceInputStream, "UTF-8"));
+//
+//			String strLine;
+//			initializeHibernate();
+//			output.add("Initialized Hibernate connection.");
+//			EntityManager em = emf.createEntityManager();
+//			em.getTransaction().begin();
+//
+//			// Read File Line By Line
+//			while ((strLine = br.readLine()) != null) {
+//				// Print the content on the console
+//				String questionCode = null;
+//				String questionText = null;
+//
+//				String[] data = strLine.split(";");
+//				if (data.length > 0) {
+//					questionCode = data[0];
+//				}
+//				if (data.length > 1) {
+//					questionText = data[1];
+//				}
+//				if ((questionCode != null) && (questionText != null)) {
+//					Question q = new Question();
+//					q.setCode(questionCode);
+//					q.setText(questionText);
+//					output.add("before persist.");
+//					em.persist(q);
+//					output.add("after persist.");
+//				}
+//				output.add(strLine);
+//			}
+//
+//			// Close the input stream
+//			br.close();
+//			em.getTransaction().commit();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			model.put("message", "Jakis blad!!!" + e.getMessage());
+//			e.printStackTrace();
+//		}
 		model.put("records", output);
 		return "db";
 	}
