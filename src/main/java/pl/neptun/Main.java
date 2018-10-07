@@ -19,6 +19,7 @@ package pl.neptun;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import pl.neptun.model.Question;
 import pl.neptun.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +27,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.sql.DataSource;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,46 +53,45 @@ import javax.persistence.criteria.Root;
 import org.jscience.physics.model.RelativisticModel;
 import org.jscience.physics.amount.Amount;
 
-
 @Controller
 @SpringBootApplication
 public class Main {
 
-  @Value("${spring.datasource.url}")
-  private String dbUrl;
+	@Value("${spring.datasource.url}")
+	private String dbUrl;
 //
 //  @Autowired
 //  private DataSource dataSource;
-  
-  private EntityManagerFactory emf;
 
-  private void initializeHibernate() {
-	  Map<String, String> env = System.getenv();
-	  Map<String, Object> configOverrides = new HashMap<String, Object>();
-	  //configOverrides.put("hibernate.connection.url", dbUrl);
-	  //System.out.println("Set hibernate connection url: " + dbUrl);
+	private EntityManagerFactory emf;
+
+	private void initializeHibernate() {
+		Map<String, String> env = System.getenv();
+		Map<String, Object> configOverrides = new HashMap<String, Object>();
+		// configOverrides.put("hibernate.connection.url", dbUrl);
+		// System.out.println("Set hibernate connection url: " + dbUrl);
 //	  for (String envName : env.keySet()) {
 //	      if (envName.contains("JDBC_DATABASE_URL")) {
 //	          configOverrides.put("hibernate.connection.url", "BUKA");//env.get(envName));    
 //	      }
 //	      // You can put more code in here to populate configOverrides...
 //	  }
-	  System.out.println("Set hibernate connection...");
-	  emf = Persistence.createEntityManagerFactory("UnitNeptunFCMTest");//, configOverrides);
-	  System.out.println("success.");
-  }
-  
-  public static void main(String[] args) throws Exception {
-    SpringApplication.run(Main.class, args);
-  }
+		System.out.println("Set hibernate connection...");
+		emf = Persistence.createEntityManagerFactory("UnitNeptunFCMTest");// , configOverrides);
+		System.out.println("success.");
+	}
 
-  @RequestMapping("/")
-  String index() {
-    return "index";
-  }
+	public static void main(String[] args) throws Exception {
+		SpringApplication.run(Main.class, args);
+	}
 
-  @RequestMapping("/db")
-  String db(Map<String, Object> model) {
+	@RequestMapping("/")
+	String index() {
+		return "index";
+	}
+
+	@RequestMapping("/db")
+	String db(Map<String, Object> model) {
 //    try (Connection connection = dataSource.getConnection()) {
 //      Statement stmt = connection.createStatement();
 //      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
@@ -104,57 +104,107 @@ public class Main {
 //      }
 //
 //      model.put("records", output);
-      return "db";
+		return "db";
 //    } catch (Exception e) {
 //      model.put("message", e.getMessage());
 //      return "error";
 //    }
-  }
-  
-  @RequestMapping("/test")
-  String test(Map<String, Object> model) {
-    ArrayList<String> output = new ArrayList<String>();
-    try {
-    	initializeHibernate();
-    	output.add("Initialized Hibernate connection.");
-    	EntityManager em = emf.createEntityManager();
-    	em.getTransaction().begin();
-    	output.add("Transaction began.");
-    	User testUser = new User();
-    	testUser.setFirstName("Jan");
-    	testUser.setLastName("Kowalski");
-    	output.add("before persist.");
-    	em.persist(testUser);
-    	output.add("after persist.");
-    	em.getTransaction().commit();
-    	
-    	CriteriaBuilder builder = em.getCriteriaBuilder();
-    	CriteriaQuery<User> criteria = builder.createQuery(User.class);
-    	Root<User> personRoot = criteria.from(User.class);
-    	criteria.select(personRoot);
-    	criteria.where( builder.like(personRoot.get("firstName"), "Kowalski" ) );
-    	List<User> people = em.createQuery( criteria ).getResultList();
-    	
-    	
-    	for (User u : people) {
-    		output.add("User from db: " + u.getFirstName() + " " + u.getLastName()+";");
-    	}
-    	model.put("records", output);
-      return "db";
-    } catch (Exception e) {
-    	model.put("message", "Jakis blad!!!" + e.getMessage());
-        return "error";
-    }
-  }
-  
-  @RequestMapping("/hello")
-  String hello(Map<String, Object> model) {
-      RelativisticModel.select();
-      Amount<Mass> m = Amount.valueOf("12 GeV").to(KILOGRAM);
-      model.put("science", "E=mc^2: 12 GeV = " + m.toString());
-      return "hello";
-  }
+	}
 
+	@RequestMapping("/test")
+	String test(Map<String, Object> model) {
+		ArrayList<String> output = new ArrayList<String>();
+		try {
+			initializeHibernate();
+			output.add("Initialized Hibernate connection.");
+			EntityManager em = emf.createEntityManager();
+			em.getTransaction().begin();
+			output.add("Transaction began.");
+			User testUser = new User();
+			testUser.setFirstName("Jan");
+			testUser.setLastName("Kowalski");
+			output.add("before persist.");
+			em.persist(testUser);
+			output.add("after persist.");
+			em.getTransaction().commit();
+
+			CriteriaBuilder builder = em.getCriteriaBuilder();
+			CriteriaQuery<User> criteria = builder.createQuery(User.class);
+			Root<User> personRoot = criteria.from(User.class);
+			criteria.select(personRoot);
+			criteria.where(builder.like(personRoot.get("firstName"), "Kowalski"));
+			List<User> people = em.createQuery(criteria).getResultList();
+
+			for (User u : people) {
+				output.add("User from db: " + u.getFirstName() + " " + u.getLastName() + ";");
+			}
+			model.put("records", output);
+			return "db";
+		} catch (Exception e) {
+			model.put("message", "Jakis blad!!!" + e.getMessage());
+			return "error";
+		}
+	}
+
+	@RequestMapping("/hello")
+	String hello(Map<String, Object> model) {
+		RelativisticModel.select();
+		Amount<Mass> m = Amount.valueOf("12 GeV").to(KILOGRAM);
+		model.put("science", "E=mc^2: 12 GeV = " + m.toString());
+		return "hello";
+	}
+
+	@RequestMapping("/questions")
+	String load(Map<String, Object> model) {
+		Resource resource = new ClassPathResource("MODEL_Q_QUESTIONS.csv");
+		ArrayList<String> output = new ArrayList<String>();
+		output.add("loading questions...");
+		try {
+			output.add("loaded data - questions");
+			InputStream resourceInputStream = resource.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(resourceInputStream, "UTF-8"));
+
+			String strLine;
+			initializeHibernate();
+			output.add("Initialized Hibernate connection.");
+			EntityManager em = emf.createEntityManager();
+			em.getTransaction().begin();
+
+			// Read File Line By Line
+			while ((strLine = br.readLine()) != null) {
+				// Print the content on the console
+				String questionCode = null;
+				String questionText = null;
+
+				String[] data = strLine.split(";");
+				if (data.length > 0) {
+					questionCode = data[0];
+				}
+				if (data.length > 1) {
+					questionText = data[1];
+				}
+				if ((questionCode != null) && (questionText != null)) {
+					Question q = new Question();
+					q.setCode(questionCode);
+					q.setText(questionText);
+					output.add("before persist.");
+					em.persist(q);
+					output.add("after persist.");
+				}
+				output.add(strLine);
+			}
+
+			// Close the input stream
+			br.close();
+			em.getTransaction().commit();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			model.put("message", "Jakis blad!!!" + e.getMessage());
+			e.printStackTrace();
+		}
+		model.put("records", output);
+		return "db";
+	}
 
 //  @Bean
 //  public DataSource dataSource() throws SQLException {
