@@ -19,7 +19,7 @@ package pl.neptun;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-import pl.neptun.model.Question;
+//import pl.neptun.model.Question;
 import pl.neptun.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
