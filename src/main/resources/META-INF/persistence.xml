@@ -31,7 +31,6 @@
             <property name="hibernate.hikari.maximumPoolSize" value="10" />
             <property name="hibernate.hikari.idleTimeout" value="30000" />
             <property name="hibernate.connection.provider_class" value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
-            <property name ="hibernate.hikari.dataSourceClassName" value="org.postgresql.ds.PGSimpleDataSource" />
             <property name="hibernate.hikari.dataSource.url" value="jdbc:postgresql://ec2-54-83-50-145.compute-1.amazonaws.com:5432/d7pqg64f80rf1e?user=brhwlohfhknwuy&amp;password=8f45da57857e7b8652bb2863517997b490491446709ff240781b11303882cc5a&amp;sslmode=require"/>
             <property name="hibernate.hikari.dataSource.user" value="brhwlohfhknwuy"/>
             <property name="hibernate.hikari.dataSource.password" value="$8f45da57857e7b8652bb2863517997b490491446709ff240781b11303882cc5a"/>
