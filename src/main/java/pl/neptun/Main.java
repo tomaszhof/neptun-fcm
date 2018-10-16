@@ -156,7 +156,7 @@ public class Main {
 
 	@RequestMapping("/questions")
 	String load(Map<String, Object> model) {
-		Resource resource = new ClassPathResource("MODEL_Q_QUESTIONS.csv");
+		Resource resource = new ClassPathResource("data/1_MODEL_Q_QUESTIONS.csv");
 		ArrayList<String> output = new ArrayList<String>();
 		output.add("loading questions...");
 		try {
