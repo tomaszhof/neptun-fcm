@@ -1,6 +1,8 @@
 target
 .env
 .idea/
+.git/
+.mvn/
 *.iml
 .project
 .classpath
