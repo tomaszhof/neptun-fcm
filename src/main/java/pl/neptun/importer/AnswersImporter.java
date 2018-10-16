@@ -10,21 +10,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import pl.neptun.model.Question;
+import pl.neptun.model.Answer;
 
-public class QuestionsImporter extends FileImporter {
-	Logger logger = LoggerFactory.getLogger(QuestionsImporter.class);
+public class AnswersImporter extends FileImporter {
+	Logger logger = LoggerFactory.getLogger(AnswersImporter.class);
 
-	public QuestionsImporter(String fileName) {
+	public AnswersImporter(String fileName) {
 		super(fileName);
 	}
 
 	@Override
 	public void processData() {
 		Resource resource = new ClassPathResource(path+fileName);
-		logger.debug("loading questions...");
+		logger.debug("loading answers...");
 		try {
-			logger.debug("loaded data - questions");
+			logger.debug("loaded data - answers");
 			InputStream resourceInputStream = resource.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(resourceInputStream, "UTF-8"));
 
@@ -32,23 +32,23 @@ public class QuestionsImporter extends FileImporter {
 			// Read File Line By Line
 			while ((strLine = br.readLine()) != null) {
 				// Print the content on the console
-				String questionCode = null;
-				String questionText = null;
+				String answerCode = null;
+				String answerText = null;
 
 				String[] data = strLine.split(";");
 				if (data.length > 0) {
-					questionCode = data[0];
+					answerCode = data[0];
 				}
 				if (data.length > 1) {
-					questionText = data[1];
-					questionText = questionText.replaceAll("_", " ");
+					answerText = data[1];
+					answerText = answerText.replaceAll("_", " ");
 				}
-				if ((questionCode != null) && (questionText != null)) {
-					Question q = new Question();
-					q.setCode(questionCode);
-					q.setText(questionText);
+				if ((answerCode != null) && (answerText != null)) {
+					Answer a = new Answer();
+					a.setCode(answerCode);
+					a.setText(answerText);
 					logger.debug("before persist.");
-					em.merge(q);
+					em.merge(a);
 					logger.debug("after persist.");
 				}
 				logger.debug(strLine);

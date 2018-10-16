@@ -19,6 +19,7 @@ package pl.neptun;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import pl.neptun.importer.AnswersImporter;
 import pl.neptun.importer.QuestionsImporter;
 import pl.neptun.model.Question;
 import pl.neptun.model.User;
@@ -208,13 +209,15 @@ public class Main {
 		return "db";
 	}
 
-	@RequestMapping("/importerquestions")
-	String importerQuestions(Map<String, Object> model) {
+	@RequestMapping("/importer")
+	String importData(Map<String, Object> model) {
 		QuestionsImporter qi = new QuestionsImporter("1_MODEL_Q_QUESTIONS.csv");
+		AnswersImporter ai = new AnswersImporter("2_MODEL_A_ANSWERS.csv");
 		ArrayList<String> output = new ArrayList<String>();
 		output.add("loading questions...");
 		try {
 			qi.doImport();
+			ai.doImport();
 			output.add("loaded data - questions");
 			
 		} catch (Exception e) {
