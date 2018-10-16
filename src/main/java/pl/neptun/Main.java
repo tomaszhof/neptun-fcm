@@ -19,6 +19,7 @@ package pl.neptun;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import pl.neptun.importer.QuestionsImporter;
 import pl.neptun.model.Question;
 import pl.neptun.model.User;
 
@@ -182,6 +183,7 @@ public class Main {
 				}
 				if (data.length > 1) {
 					questionText = data[1];
+					questionText = questionText.replaceAll("_", " ");
 				}
 				if ((questionCode != null) && (questionText != null)) {
 					Question q = new Question();
@@ -206,6 +208,24 @@ public class Main {
 		return "db";
 	}
 
+	@RequestMapping("/importerquestions")
+	String importerQuestions(Map<String, Object> model) {
+		QuestionsImporter qi = new QuestionsImporter("1_MODEL_Q_QUESTIONS.csv");
+		ArrayList<String> output = new ArrayList<String>();
+		output.add("loading questions...");
+		try {
+			qi.doImport();
+			output.add("loaded data - questions");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			model.put("message", "Jakis blad!!!" + e.getMessage());
+			e.printStackTrace();
+		}
+		model.put("records", output);
+		return "db";
+	}
+	
 //  @Bean
 //  public DataSource dataSource() throws SQLException {
 //    if (dbUrl == null || dbUrl.isEmpty()) {
