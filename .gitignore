@@ -3,6 +3,7 @@ target
 .idea/
 .git/
 .mvn/
+.settings/
 *.iml
 .project
 .classpath

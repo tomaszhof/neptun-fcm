@@ -20,6 +20,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 import pl.neptun.importer.AnswersImporter;
+import pl.neptun.importer.QuestionAnswersImporter;
 import pl.neptun.importer.QuestionsImporter;
 import pl.neptun.model.Question;
 import pl.neptun.model.User;
@@ -213,11 +214,13 @@ public class Main {
 	String importData(Map<String, Object> model) {
 		QuestionsImporter qi = new QuestionsImporter("1_MODEL_Q_QUESTIONS.csv");
 		AnswersImporter ai = new AnswersImporter("2_MODEL_A_ANSWERS.csv");
+		QuestionAnswersImporter qai = new QuestionAnswersImporter("3_MODEL_QA_QUESTIONS_AND_ANSWERS_TOGETHER.csv");
 		ArrayList<String> output = new ArrayList<String>();
 		output.add("loading questions...");
 		try {
 			qi.doImport();
 			ai.doImport();
+			qai.doImport();
 			output.add("loaded data - questions");
 			
 		} catch (Exception e) {

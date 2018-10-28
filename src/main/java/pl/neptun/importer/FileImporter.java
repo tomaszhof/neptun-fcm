@@ -2,13 +2,13 @@ package pl.neptun.importer;
 
 import javax.persistence.EntityManager;
 
-import pl.neptun.jpa.NeptunDAO;
+import pl.neptun.jpa.NeptunJPA;
 
 public abstract class FileImporter {
 	
 	protected String path;
 	protected String fileName;
-	protected EntityManager em = NeptunDAO.em();
+	protected EntityManager em = NeptunJPA.em();
 	
 	public FileImporter(String fileName) {
 		this.path = "data/";
