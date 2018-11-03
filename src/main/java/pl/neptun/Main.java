@@ -219,14 +219,17 @@ public class Main {
 		output.add("loading questions...");
 		try {
 			qi.doImport();
-			ai.doImport();
-			qai.doImport();
 			output.add("loaded data - questions");
+			ai.doImport();
+			output.add("loaded data - answers");
+			qai.doImport();
+			output.add("loaded data - questions-answers");
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			model.put("message", "Jakis blad!!!" + e.getMessage());
 			e.printStackTrace();
+			output.add("Jakis blad!!!" + e.getMessage());
 		}
 		model.put("records", output);
 		return "db";
