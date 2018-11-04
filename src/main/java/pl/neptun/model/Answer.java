@@ -3,6 +3,7 @@ package pl.neptun.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -14,6 +15,7 @@ public class Answer {
 	
 	private String code;
 	
+	@Lob
 	private String text;
 
 	public Long getId() {
