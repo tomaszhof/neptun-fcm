@@ -15,7 +15,7 @@ import pl.neptun.model.Question;
 
 public class QuestionAnswersImporter extends FileImporter {
 
-	Logger logger = LoggerFactory.getLogger(QuestionsImporter.class);
+	Logger logger = LoggerFactory.getLogger(QuestionAnswersImporter.class);
 
 	public QuestionAnswersImporter(String fileName) {
 		super(fileName);
