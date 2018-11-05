@@ -44,12 +44,12 @@ public class QuestionAnswersImporter extends FileImporter {
 				if (data.length > 2) {
 					answersCodes = data[2];
 					if ((questionCode != null) && (answersCodes != null)) {
-						logger.debug("Question: " + questionCode + "Answers: " + answersCodes);
-						//Question q = NeptunDAO.findByCode(Question.class, questionCode);
-						//q.setAnswersCodes(answersCodes);
-						//logger.debug("before persist.");
-						//em.merge(q);
-						//logger.debug("after persist.");
+						logger.debug("Question: " + questionCode + " Answers: " + answersCodes);
+						Question q = NeptunDAO.findByCode(Question.class, questionCode);
+						q.setAnswersCodes(answersCodes);
+						logger.debug("before persist.");
+						em.merge(q);
+						logger.debug("after persist.");
 					}
 					logger.debug(strLine);
 				}
