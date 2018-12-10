@@ -69,24 +69,51 @@ public class NeptunDAO {
 	    
 	    public static <T> T findByCode(Class<T> clazz, String code) {
 
-	        CriteriaBuilder cb = NeptunJPA.em().getCriteriaBuilder();
-	        CriteriaQuery<T> q = cb.createQuery(clazz);
+			CriteriaBuilder cb = NeptunJPA.em().getCriteriaBuilder();
+			CriteriaQuery<T> q = cb.createQuery(clazz);
 
-	        Root<T> root = q.from(clazz);
+			Root<T> root = q.from(clazz);
 
-	        Predicate srcEqPredicate = cb.equal(root.get("code"), code);
-	        q.select(root)
-	                .where(srcEqPredicate);
-	        TypedQuery<T> query = NeptunJPA.em().createQuery(q);
+			Predicate srcEqPredicate = cb.equal(root.get("code"), code);
+			q.select(root)
+					.where(srcEqPredicate);
+			TypedQuery<T> query = NeptunJPA.em().createQuery(q);
 
-	        T result = null;
-	        try {
-	            result = query.getSingleResult();
-	        } catch (Exception e) {
-	        	log.debug("Not found " + clazz.getName() + " where code=" + code);
-	        	log.debug(e.getMessage());
-	        }
+			T result = null;
+			try {
+				result = query.getSingleResult();
+			} catch (Exception e) {
+				log.debug("Not found " + clazz.getName() + " where code=" + code);
+				log.debug(e.getMessage());
+			}
 
-	        return result;
-	    }
+			return result;
+		}
+
+	public static <T> T findByCode2(Class<T> clazz, String code) {
+		CriteriaBuilder cb = NeptunJPA.em().getCriteriaBuilder();
+		CriteriaQuery<T> q = cb.createQuery(clazz);
+
+		Root<T> root = q.from(clazz);
+
+		Predicate srcEqPredicate = cb.equal(root.get("code"), code);
+		q.select(root)
+				.where(srcEqPredicate);
+		TypedQuery<T> query = NeptunJPA.em().createQuery(q);
+		T result = null;
+		try {
+			//result = query.getSingleResult();
+			List results = q1.getResultList();
+			if (!results.isEmpty())
+				result = results.get(0);
+			else
+			// is it a problem? -> log.
+		} catch (Exception e) {
+			log.debug("Not found " + clazz.getName() + " where code=" + code);
+			log.debug(e.getMessage());
+		}
+
+		return result;
+	}
+
 }
