@@ -110,7 +110,7 @@ public class NeptunDAO {
 				return null;
 			}
 			else{
-				for(String x : list)
+				for(T x : list)
 					logger.debug("test: " + x);
 				return list.get(0);
 			}
