@@ -18,11 +18,9 @@ public abstract class FileImporter {
 	abstract public void processData();
 	
 	public void doImport() {
-		Session session = sessionFactory.openSession(); //zeby nie bylo bledu transaction already active
 		em.getTransaction().begin();
 		processData();
 		em.getTransaction().commit();
-		session.close(); //zamyka sesję, zebyu nie było błędu Transaction already active
-	};
+	}
 	
 }
