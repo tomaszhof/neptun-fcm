@@ -119,5 +119,6 @@ public class NeptunDAO {
 		}
 
 		//return list.get(0);
+		return null; //jakby już nic innego nie zwrócił po drodze
 	}
 }
