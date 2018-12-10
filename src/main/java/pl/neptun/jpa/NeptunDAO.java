@@ -118,6 +118,6 @@ public class NeptunDAO {
 			log.debug(e.getMessage());
 		}
 
-		return list.get(0);
+		//return list.get(0);
 	}
 }
