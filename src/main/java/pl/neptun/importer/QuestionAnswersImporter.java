@@ -25,6 +25,7 @@ public class QuestionAnswersImporter extends FileImporter {
 	public void processData() {
 		Resource resource = new ClassPathResource(path + fileName);
 		logger.debug("loading questions-answers...");
+		log.debug("loading questions-answers..");
 		try {
 			logger.debug("loaded data - questions-answers");
 			InputStream resourceInputStream = resource.getInputStream();
