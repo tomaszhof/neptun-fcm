@@ -110,9 +110,10 @@ public class NeptunDAO {
 				return null;
 			}
 			else{
-				//for(T x : list)
-				//	logger.debug("test: " + x.toString());
+				for(T x : list)
+					log.debug(test);
 				return list.get(1);
+
 			}
 
 		} catch (Exception e) {
