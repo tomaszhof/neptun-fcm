@@ -90,7 +90,7 @@ public class NeptunDAO {
 			return result;
 		}
 
-	public static <T> T findByCode2(Class<T> clazz, String code) {
+	public static <T> T findByCodeTest(Class<T> clazz, String code) {
 
 		CriteriaBuilder cb = NeptunJPA.em().getCriteriaBuilder();
 		CriteriaQuery<T> q = cb.createQuery(clazz);
@@ -104,12 +104,15 @@ public class NeptunDAO {
 
 		T result = null;
 		try {
-			query.setMaxResults(1);
+			//query.setMaxResults(1);
 			List<T> list = query.getResultList();
 			if (list == null || list.isEmpty()) {
 				return null;
 			}
-			else
+			else{
+				return list.get(0);
+			}
+
 		} catch (Exception e) {
 			log.debug("Not found " + clazz.getName() + " where code=" + code);
 			log.debug(e.getMessage());
