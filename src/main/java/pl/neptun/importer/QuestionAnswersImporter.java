@@ -63,7 +63,5 @@ public class QuestionAnswersImporter extends FileImporter {
 			logger.debug("Jakis blad!!!" + e.getMessage());
 			e.printStackTrace();
 		}
-
 	}
-
 }
