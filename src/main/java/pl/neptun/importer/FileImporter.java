@@ -18,9 +18,10 @@ public abstract class FileImporter {
 	abstract public void processData();
 	
 	public void doImport() {
+		//Session session = sessionFactory.getCurrentSession();
 		em.getTransaction().begin();
 		processData();
 		em.getTransaction().commit();
-	};
+	}
 	
 }

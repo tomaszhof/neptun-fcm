@@ -69,24 +69,59 @@ public class NeptunDAO {
 	    
 	    public static <T> T findByCode(Class<T> clazz, String code) {
 
-	        CriteriaBuilder cb = NeptunJPA.em().getCriteriaBuilder();
-	        CriteriaQuery<T> q = cb.createQuery(clazz);
+			CriteriaBuilder cb = NeptunJPA.em().getCriteriaBuilder();
+			CriteriaQuery<T> q = cb.createQuery(clazz);
 
-	        Root<T> root = q.from(clazz);
+			Root<T> root = q.from(clazz);
 
-	        Predicate srcEqPredicate = cb.equal(root.get("code"), code);
-	        q.select(root)
-	                .where(srcEqPredicate);
-	        TypedQuery<T> query = NeptunJPA.em().createQuery(q);
+			Predicate srcEqPredicate = cb.equal(root.get("code"), code);
+			q.select(root)
+					.where(srcEqPredicate);
+			TypedQuery<T> query = NeptunJPA.em().createQuery(q);
 
-	        T result = null;
-	        try {
-	            result = query.getSingleResult();
-	        } catch (Exception e) {
-	        	log.debug("Not found " + clazz.getName() + " where code=" + code);
-	        	log.debug(e.getMessage());
-	        }
+			T result = null;
+			try {
+				result = query.getSingleResult();
+			} catch (Exception e) {
+				log.debug("Not found " + clazz.getName() + " where code=" + code);
+				log.debug(e.getMessage());
+			}
 
-	        return result;
-	    }
+			return result;
+		}
+
+	public static <T> T findByCodeTest(Class<T> clazz, String code) {
+
+		CriteriaBuilder cb = NeptunJPA.em().getCriteriaBuilder();
+		CriteriaQuery<T> q = cb.createQuery(clazz);
+
+		Root<T> root = q.from(clazz);
+
+		Predicate srcEqPredicate = cb.equal(root.get("code"), code);
+		q.select(root)
+				.where(srcEqPredicate);
+		TypedQuery<T> query = NeptunJPA.em().createQuery(q);
+
+		T result = null;
+		try {
+			//query.setMaxResults(1);
+			List<T> list = query.getResultList();
+			if (list == null || list.isEmpty()) {
+				return null;
+			}
+			else{
+				for(T x : list)
+					log.debug("test");
+				return list.get(1);
+
+			}
+
+		} catch (Exception e) {
+			log.debug("Not found " + clazz.getName() + " where code=" + code);
+			log.debug(e.getMessage());
+		}
+
+		//return list.get(0);
+		return null; //jakby już nic innego nie zwrócił po drodze
+	}
 }
