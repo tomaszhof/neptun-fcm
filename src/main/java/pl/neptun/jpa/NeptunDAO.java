@@ -112,7 +112,7 @@ public class NeptunDAO {
 			else{
 				for(T x : list)
 					log.debug("test");
-				return list.get(1);
+				return list.get(0);
 
 			}
 
