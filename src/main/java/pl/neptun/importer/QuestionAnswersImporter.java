@@ -37,6 +37,8 @@ public class QuestionAnswersImporter extends FileImporter {
 				String questionCode = null;
 				String answersCodes = null;
 
+				logger.debug(strLine);
+				/*
 				String[] data = strLine.split(":");
 				if (data.length > 1) {
 					questionCode = data[1];
@@ -54,6 +56,7 @@ public class QuestionAnswersImporter extends FileImporter {
 					}
 					logger.debug(strLine);
 				}
+				*/
 			}
 
 			// Close the input stream
