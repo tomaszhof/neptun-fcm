@@ -19,9 +19,9 @@ public abstract class FileImporter {
 	
 	public void doImport() {
 		NeptunJPA.importBegin(NeptunJPA.TRANSACTION_CARDINALITY);
-		em.getTransaction().begin();
+		//em.getTransaction().begin();
 		processData();
-		em.getTransaction().commit();
+		//em.getTransaction().commit();
 		NeptunJPA.importEnd(NeptunJPA.TRANSACTION_CARDINALITY);
 	}
 	
