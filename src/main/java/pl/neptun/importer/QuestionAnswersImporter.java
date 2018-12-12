@@ -37,7 +37,12 @@ public class QuestionAnswersImporter extends FileImporter {
 				String questionCode = null;
 				String answersCodes = null;
 
-				logger.debug(strLine);
+
+				String[] tmp = strLine.split(":");
+				logger.debug(tmp[0]);
+				logger.debug(tmp[1]);
+				logger.debug(tmp[2]);
+				logger.debug("\n");
 				/*
 				String[] data = strLine.split(":");
 				if (data.length > 1) {
