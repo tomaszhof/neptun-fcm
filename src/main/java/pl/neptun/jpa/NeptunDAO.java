@@ -1,19 +1,13 @@
 package pl.neptun.jpa;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Order;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NeptunDAO {
 	private static final Logger log = LoggerFactory.getLogger(NeptunDAO.class);
@@ -80,7 +74,9 @@ public class NeptunDAO {
 		TypedQuery<T> query = NeptunJPA.em().createQuery(q);
 
 		T result = null;
+
 		try {
+			query.setMaxResults(1);
 			result = query.getSingleResult();
 			log.debug("Result: " + result);
 		} catch (Exception e) {
@@ -88,7 +84,7 @@ public class NeptunDAO {
 			log.debug(e.getMessage());
 		}
 
-		return (T) result;
+		return result;
 	}
 
 }

@@ -1,17 +1,16 @@
 package pl.neptun.importer;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-
 import pl.neptun.jpa.NeptunDAO;
 import pl.neptun.model.Question;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class QuestionAnswersImporter extends FileImporter {
 
@@ -36,17 +35,6 @@ public class QuestionAnswersImporter extends FileImporter {
 				// Print the content on the console
 				String questionCode = null;
 				String answersCodes = null;
-
-				/*
-				String[] tmp = strLine.split(":");
-				logger.debug(tmp[0]); //QA
-				logger.debug(tmp[1]); //Q
-				logger.debug(tmp[2]); //Answers
-				logger.debug("\n");
-
-				questionCode = tmp[1];
-				answersCodes = tmp[2];
-				*/
 
 
 				String[] data = strLine.split(":");
