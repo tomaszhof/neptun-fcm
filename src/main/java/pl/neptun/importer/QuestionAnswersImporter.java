@@ -58,6 +58,7 @@ public class QuestionAnswersImporter extends FileImporter {
 					if ((questionCode != null) && (answersCodes != null)) {
 						logger.debug("Question: " + questionCode + " Answers: " + answersCodes);
 						//Question q = NeptunDAO.findByCode(Question.class, questionCode); //tu zwraca null
+						Question q = new Question();
 						logger.debug("test: " + NeptunDAO.findByCode(Question.class, questionCode));
 						q.setAnswersCodes(answersCodes);
 						logger.debug("before persist.");
