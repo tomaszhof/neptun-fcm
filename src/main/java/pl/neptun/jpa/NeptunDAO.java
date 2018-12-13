@@ -79,7 +79,7 @@ public class NeptunDAO {
 					.where(srcEqPredicate);
 			TypedQuery<T> query = NeptunJPA.em().createQuery(q);
 
-			T result;
+			T result = "";
 			try {
 				result = query.getSingleResult();
 				log.debug("Result: " + result);
