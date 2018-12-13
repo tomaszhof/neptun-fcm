@@ -101,28 +101,17 @@ public class NeptunDAO {
 		Predicate srcEqPredicate = cb.equal(root.get("code"), code);
 		q.select(root)
 				.where(srcEqPredicate);
-		TypedQuery<T> query = NeptunJPA.em().createQuery(q);
+		CriteriaQuery<T> query = NeptunJPA.em().createQuery(q);
 
 		T result = null;
 		try {
-			//query.setMaxResults(1);
-			List<T> list = query.getResultList();
-			if (list == null || list.isEmpty()) {
-				return null;
-			}
-			else{
-				for(T x : list)
-					log.debug("test");
-				return list.get(0);
-
-			}
-
+			result = query.getSingleResult();
+			log.debug("Result: " + result);
 		} catch (Exception e) {
 			log.debug("Not found " + clazz.getName() + " where code=" + code);
 			log.debug(e.getMessage());
 		}
 
-		//return list.get(0);
-		return null; //jakby już nic innego nie zwrócił po drodze
+		return (T) result;
 	}
 }
