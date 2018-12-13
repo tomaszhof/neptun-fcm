@@ -79,7 +79,7 @@ public class NeptunDAO {
 					.where(srcEqPredicate);
 			TypedQuery<T> query = NeptunJPA.em().createQuery(q);
 
-			T result = new T();
+			T result = null;
 			try {
 				result = query.getSingleResult();
 				log.debug("Result: " + result);
@@ -88,7 +88,7 @@ public class NeptunDAO {
 				log.debug(e.getMessage());
 			}
 
-			return result;
+			return (T) result;
 		}
 
 	public static <T> T findByCodeTest(Class<T> clazz, String code) {
