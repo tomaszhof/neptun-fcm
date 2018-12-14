@@ -29,7 +29,6 @@ public class NeptunRestController {
         List<Answer> entityList = NeptunDAO.findAll(Answer.class);
         JSONArray jsonArray = new JSONArray(entityList);
 
-        System.out.println(jsonArray);
         logger.debug(String.valueOf(jsonArray));
 
         for(Answer ans : entityList){
