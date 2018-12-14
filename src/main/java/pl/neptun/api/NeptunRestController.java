@@ -47,6 +47,7 @@ public class NeptunRestController {
             logger.debug("Code: " + que.getCode());
             logger.debug("Text: " + que.getAnswersCodes());
             logger.debug("ID: " + que.getId());
+            logger.debug("\n\n\n");
 
             //map.put(que.getCode(), que.getText());
         }
