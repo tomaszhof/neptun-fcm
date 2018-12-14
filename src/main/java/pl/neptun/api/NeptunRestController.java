@@ -1,7 +1,6 @@
 package pl.neptun.api;
 
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +31,8 @@ public class NeptunRestController {
 
         List<JSONObject> entities = new ArrayList<JSONObject>();
         for (Long n : entityList) {
+            logger.debug(n.toString());
+            /*
             JSONObject entity = new JSONObject();
 
             try {
@@ -41,6 +42,7 @@ public class NeptunRestController {
                 e.printStackTrace();
             }
             entities.add(entity);
+            */
         }
         return new ResponseEntity<Object>(entities, HttpStatus.OK);
     }
