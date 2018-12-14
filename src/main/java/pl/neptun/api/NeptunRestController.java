@@ -10,7 +10,6 @@ import pl.neptun.model.Answer;
 
 import javax.transaction.Transactional;
 import java.util.HashMap;
-import java.util.List;
 
 @Transactional
 @RestController
@@ -21,7 +20,7 @@ public class NeptunRestController {
     public String sayHello()
     {
         HashMap<String, Object> map = new HashMap<>(); //hashowa mapa zwraca JSON'a
-        List<Answer> list = NeptunDAO.findAll(Answer.class);
+        Answer list = NeptunDAO.findByCode(Answer.class, "A1");
 
         return list.toString();
     }
