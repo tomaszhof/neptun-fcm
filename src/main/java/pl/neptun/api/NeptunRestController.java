@@ -1,6 +1,7 @@
 package pl.neptun.api;
 
 
+import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -21,11 +22,15 @@ import java.util.List;
 public class NeptunRestController {
     Logger logger = LoggerFactory.getLogger(QuestionAnswersImporter.class);
 
-    @GetMapping(path = "/hello", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/answers", produces = MediaType.APPLICATION_JSON_VALUE)
     public HashMap<String, Object> sayHello() {
         HashMap<String, Object> map = new HashMap<>();
         //Get data from service layer into entityList.
         List<Answer> entityList = NeptunDAO.findAll(Answer.class);
+        JSONArray jsonArray = new JSONArray(entityList);
+
+        System.out.println(jsonArray);
+        logger.debug(String.valueOf(jsonArray));
 
         for(Answer ans : entityList){
             logger.debug(ans.getText());
