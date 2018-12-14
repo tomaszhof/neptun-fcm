@@ -9,17 +9,18 @@ import pl.neptun.jpa.NeptunDAO;
 import pl.neptun.model.Answer;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class NeptunRestController {
 
     @GetMapping(path = "/hello", produces=MediaType.APPLICATION_JSON_VALUE)
-    public HashMap<String, Object> sayHello()
+    public String sayHello()
     {
         HashMap<String, Object> map = new HashMap<>(); //hashowa mapa zwraca JSON'a
-        map = (HashMap<String, Object>) NeptunDAO.findAll(Answer.class);
+        List<Answer> list = NeptunDAO.findAll(Answer.class);
 
-        return map;
+        return list.toString();
     }
 }
