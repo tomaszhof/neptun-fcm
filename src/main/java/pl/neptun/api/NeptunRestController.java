@@ -6,7 +6,6 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,17 +24,19 @@ import java.util.List;
 public class NeptunRestController {
     Logger logger = LoggerFactory.getLogger(QuestionAnswersImporter.class);
 
-    @GetMapping(path = "/hello", produces=MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/hello")
     public ResponseEntity<Object> sayHello()
     {
         //Get data from service layer into entityList.
-        List<Answer> entityList = NeptunDAO.findAll(Answer.class);
+        List<Long> entityList = NeptunDAO.findAllIds(Answer.class);
 
         List<JSONObject> entities = new ArrayList<JSONObject>();
-        for (Answer n : entityList) {
+        for (Long n : entityList) {
             JSONObject entity = new JSONObject();
+
             try {
-                entity.put("aa", "bb");
+                //entity.put(n.getCode(), n.getText());
+                entity.put("ee", "oo");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
