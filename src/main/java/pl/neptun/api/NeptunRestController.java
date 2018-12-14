@@ -1,10 +1,13 @@
 package pl.neptun.api;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.neptun.importer.QuestionAnswersImporter;
 import pl.neptun.jpa.NeptunDAO;
 import pl.neptun.model.Answer;
 
@@ -16,12 +19,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class NeptunRestController {
+    Logger logger = LoggerFactory.getLogger(QuestionAnswersImporter.class);
 
     @GetMapping(path = "/hello", produces=MediaType.APPLICATION_JSON_VALUE)
     public String sayHello()
     {
         HashMap<String, Object> map = new HashMap<>(); //hashowa mapa zwraca JSON'a
         List<Answer> list = NeptunDAO.findAll(Answer.class);
+        for(Answer ans : list){
+            logger.debug(String.valueOf(ans));
+        }
 
         return list.toString();
     }
