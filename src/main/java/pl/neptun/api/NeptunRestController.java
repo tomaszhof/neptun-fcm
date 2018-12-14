@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.neptun.jpa.NeptunDAO;
 import pl.neptun.model.Answer;
 
+import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
 
+@Transactional
 @RestController
 @RequestMapping("/api")
 public class NeptunRestController {
