@@ -35,11 +35,16 @@ public class NeptunRestController {
             logger.debug(n.toString());
             Answer answer = NeptunDAO.findById(Answer.class, n);
 
+            logger.debug(answer.getCode());
+            logger.debug(answer.getId().toString());
+            logger.debug(answer.getText());
+            logger.debug("\n");
+
             JSONObject entity = new JSONObject();
 
             try {
                 //entity.put(n.getCode(), n.getText());
-                entity.put(answer.getId().toString(), answer.getCode());
+                entity.put(answer.getText(), answer.getCode());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
