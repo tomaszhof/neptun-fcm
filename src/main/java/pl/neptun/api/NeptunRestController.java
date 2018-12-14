@@ -1,7 +1,8 @@
 package pl.neptun.api;
 
 
-import org.json.JSONArray;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -23,13 +24,18 @@ public class NeptunRestController {
     Logger logger = LoggerFactory.getLogger(QuestionAnswersImporter.class);
 
     @GetMapping(path = "/answers", produces = MediaType.APPLICATION_JSON_VALUE)
-    public HashMap<String, Object> sayHello() {
+    public String sayHello() {
         HashMap<String, Object> map = new HashMap<>();
         //Get data from service layer into entityList.
         List<Answer> entityList = NeptunDAO.findAll(Answer.class);
-        JSONArray jsonArray = new JSONArray(entityList);
+        String jsonString = null;
 
-        logger.debug(String.valueOf(jsonArray));
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            jsonString = objectMapper.writeValueAsString(entityList);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
 
         /*
         for(Answer ans : entityList){
@@ -37,6 +43,6 @@ public class NeptunRestController {
             map.put(ans.getCode(), ans.getText());
         }
         */
-        return map;
+        return jsonString;
     }
 }
