@@ -31,10 +31,12 @@ public class NeptunRestController {
 
         logger.debug(String.valueOf(jsonArray));
 
+        /*
         for(Answer ans : entityList){
             logger.debug(ans.getText());
             map.put(ans.getCode(), ans.getText());
         }
+        */
         return map;
     }
 }
