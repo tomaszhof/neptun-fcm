@@ -1,6 +1,7 @@
 package pl.neptun.api;
 
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,17 +33,18 @@ public class NeptunRestController {
         List<JSONObject> entities = new ArrayList<JSONObject>();
         for (Long n : entityList) {
             logger.debug(n.toString());
-            /*
+            Answer answer = NeptunDAO.findById(Answer.class, n);
+
             JSONObject entity = new JSONObject();
 
             try {
                 //entity.put(n.getCode(), n.getText());
-                entity.put("ee", "oo");
+                entity.put(answer.getId().toString(), answer.getCode());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             entities.add(entity);
-            */
+
         }
         return new ResponseEntity<Object>(entities, HttpStatus.OK);
     }
