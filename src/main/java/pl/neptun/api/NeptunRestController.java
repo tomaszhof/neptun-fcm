@@ -29,8 +29,10 @@ public class NeptunRestController {
         List<Answer> entityList = NeptunDAO.findAll(Answer.class);
 
         for(Answer ans : entityList){
-            logger.debug(ans.getText());
-            map.put(ans.getCode(), ans.getText());
+            if(ans.getCode() != null && ans.getText() != null)
+                map.put(ans.getCode(), ans.getText());
+            else
+                logger.debug("Code: " + ans.getCode() + " Text: " + ans.getText());
         }
 
         return map;
