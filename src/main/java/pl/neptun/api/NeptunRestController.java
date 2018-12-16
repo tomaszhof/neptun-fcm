@@ -47,19 +47,17 @@ public class NeptunRestController {
         for(Question que : entityList){
             String text = que.getText();
             String code = que.getCode();
+            String ansCodes = que.getAnswersCodes();
 
-            logger.debug("Text: " + que.getText());
-            logger.debug("Code: " + que.getCode());
-            //logger.debug("Text: " + que.getAnswersCodes());
-            logger.debug("ID: " + que.getId());
-            logger.debug("\n\n\n");
+            if(text == null)
+                text = "";
+            if(code == null)
+                code = "";
+            if(ansCodes == null)
+                ansCodes = "";
 
-            //if(text != null || code != null || que.getAnswersCodes() != null)
-            map.put(que.getCode(), que.getAnswersCodes());
-            //else
-            logger.debug(que.getCode() + " : " + que.getAnswersCodes());
+            map.put(text, ansCodes);
         }
-
         return map;
     }
 
