@@ -71,4 +71,14 @@ public class NeptunRestController {
         return map;
     }
 
+    @RequestMapping(value = "/answer/{code}", method = GET)
+    @ResponseBody
+    public HashMap<String, String> getAnswerByCode(@PathVariable("code") String code) {
+        HashMap<String, String> map = new HashMap<>();
+        code = code.toUpperCase(); // na wypadek podania małego 'q'
+        Answer answer = NeptunDAO.findByCode(Answer.class, code);
+        map.put(answer.getCode(), answer.getText());
+        return map;
+    }
+
 }
