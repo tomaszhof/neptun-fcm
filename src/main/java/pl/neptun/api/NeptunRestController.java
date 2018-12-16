@@ -88,8 +88,9 @@ public class NeptunRestController {
     public HashMap<String, String> getAnswerByCode(@PathVariable("code") String code) {
         HashMap<String, String> map = new HashMap<>();
         code = code.toUpperCase(); // na wypadek podania małego 'a'
+
         String[] codes = code.split(";"); //rodziela zapytania
-        logger.debug("\n\nCode: " + code);
+        logger.debug("\n\nCodeGET : " + code);
 
         //dodaje do mapy odpowiedzi
         for(String cd : codes)
