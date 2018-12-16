@@ -36,7 +36,7 @@ public class NeptunRestController {
         return map;
     }
 
-    @GetMapping(path = "/getallquestions", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/questions", produces = MediaType.APPLICATION_JSON_VALUE)
     public HashMap<String, String> getAllQuestions() {
         HashMap<String, String> map = new HashMap<>();
         //Get data from service layer into entityList.
@@ -52,7 +52,7 @@ public class NeptunRestController {
             logger.debug("ID: " + que.getId());
             logger.debug("\n\n\n");
 
-            if(text != null && code != null && que.getAnswersCodes() != null)
+            if(text != null || code != null || que.getAnswersCodes() != null)
                 map.put(que.getCode(), que.getAnswersCodes());
             else
                 logger.debug("\nMamy nulla\n");
@@ -61,20 +61,7 @@ public class NeptunRestController {
         return map;
     }
 
-    @GetMapping(path = "/getqueans", produces = MediaType.APPLICATION_JSON_VALUE)
-    public HashMap<String, Object> getAllQueAns() {
-        HashMap<String, Object> map = new HashMap<>();
-        //Get data from service layer into entityList.
-        List<Answer> entityList = NeptunDAO.findAll(Answer.class);
-
-        for(Answer ans : entityList){
-            logger.debug(ans.getText());
-            map.put(ans.getCode(), ans.getText());
-        }
-
-        return map;
-    }
-
+    //zwraca "pytanie:możliwe kody odpowiedzi"
     @RequestMapping(value = "/question/{code}", method = GET)
     @ResponseBody
     public HashMap<String, String> getQuestionByCode(@PathVariable("code") String code) {
@@ -85,6 +72,7 @@ public class NeptunRestController {
         return map;
     }
 
+    //zwraca numerOdpowiedzi:Odpowiedz
     @RequestMapping(value = "/answer/{code}", method = GET)
     @ResponseBody
     public HashMap<String, String> getAnswerByCode(@PathVariable("code") String code) {
