@@ -83,7 +83,7 @@ public class NeptunRestController {
     }
 
     //zwraca numerOdpowiedzi:Odpowiedz
-    @RequestMapping(value = "/answer/{code}", method = GET)
+    @RequestMapping(value = "/answer/{code}", produces = MediaType.APPLICATION_JSON_VALUE, method = GET)
     @ResponseBody
     public HashMap<String, String> getAnswerByCode(@PathVariable("code") String code) {
         HashMap<String, String> map = new HashMap<>();
@@ -92,7 +92,7 @@ public class NeptunRestController {
         //dodaje do mapy odpowiedzi
         for(String cd : codes)
         {
-            Answer answer = NeptunDAO.findByCode(Answer.class, code);
+            Answer answer = NeptunDAO.findByCode(Answer.class, cd);
             map.put(answer.getCode(), answer.getText());
         }
         return map;
