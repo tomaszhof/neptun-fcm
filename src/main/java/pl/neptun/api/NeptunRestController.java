@@ -22,7 +22,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class NeptunRestController {
     Logger logger = LoggerFactory.getLogger(QuestionAnswersImporter.class);
 
-    @GetMapping(path = "/getallanswers", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/answers", produces = MediaType.APPLICATION_JSON_VALUE)
     public HashMap<String, Object> getAllAnswers() {
         HashMap<String, Object> map = new HashMap<>();
         //Get data from service layer into entityList.
