@@ -4,7 +4,10 @@ package pl.neptun.api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import pl.neptun.importer.QuestionAnswersImporter;
 import pl.neptun.jpa.NeptunDAO;
 import pl.neptun.model.Answer;
@@ -22,7 +25,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class NeptunRestController {
     Logger logger = LoggerFactory.getLogger(QuestionAnswersImporter.class);
 
-    @GetMapping(path = "/answers", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(path = "/answers", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     public HashMap<String, String> getAllAnswers() {
         HashMap<String, String> map = new HashMap<>();
         //Get data from service layer into entityList.
@@ -43,7 +47,8 @@ public class NeptunRestController {
     }
 
     //zwraca JSON numerPytania:Odpowiedz
-    @GetMapping(path = "/questions", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(path = "/questions", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     public HashMap<String, String> getAllQuestions() {
         HashMap<String, String> map = new HashMap<>();
         //Get data from service layer into entityList.
