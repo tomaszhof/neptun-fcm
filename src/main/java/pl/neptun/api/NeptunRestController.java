@@ -4,9 +4,7 @@ package pl.neptun.api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.neptun.importer.QuestionAnswersImporter;
 import pl.neptun.jpa.NeptunDAO;
 import pl.neptun.model.Answer;
@@ -15,6 +13,8 @@ import pl.neptun.model.Question;
 import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Transactional
 @RestController
@@ -60,4 +60,11 @@ public class NeptunRestController {
 
         return map;
     }
+
+    @RequestMapping(value = "/question/{code}", method = GET)
+    @ResponseBody
+    public String getFoosBySimplePathWithPathVariable(@PathVariable("code") String code) {
+        return NeptunDAO.findByCode(Question.class, code).getText();
+    }
+
 }
