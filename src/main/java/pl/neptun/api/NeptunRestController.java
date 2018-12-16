@@ -89,7 +89,7 @@ public class NeptunRestController {
         HashMap<String, String> map = new HashMap<>();
         code = code.toUpperCase(); // na wypadek podania małego 'a'
 
-        String[] codes = code.split(";"); //rodziela zapytania
+        String[] codes = code.split(","); //rodziela zapytania
         logger.debug("\n\nCodeGET : " + code);
 
         //dodaje do mapy odpowiedzi
