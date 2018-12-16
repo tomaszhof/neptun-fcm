@@ -56,7 +56,7 @@ public class NeptunRestController {
             if(ansCodes == null)
                 ansCodes = "";
 
-            map.put(text, ansCodes);
+            map.put(code, text);
         }
         return map;
     }
