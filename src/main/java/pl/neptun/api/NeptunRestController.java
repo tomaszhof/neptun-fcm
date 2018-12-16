@@ -87,14 +87,14 @@ public class NeptunRestController {
     @ResponseBody
     public HashMap<String, String> getAnswerByCode(@PathVariable("code") String code) {
         HashMap<String, String> map = new HashMap<>();
-        code = code.toUpperCase(); // na wypadek podania małego 'q'
+        code = code.toUpperCase(); // na wypadek podania małego 'a'
         String[] codes = code.split(";"); //rodziela zapytania
-        logger.debug(code);
+        logger.debug("\n\nCode: " + code);
 
         //dodaje do mapy odpowiedzi
         for(String cd : codes)
         {
-            logger.debug(cd);
+            logger.debug("\nCode:" + cd);
             Answer answer = NeptunDAO.findByCode(Answer.class, cd);
             map.put(answer.getCode(), answer.getText());
         }
