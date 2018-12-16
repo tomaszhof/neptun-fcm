@@ -66,7 +66,8 @@ public class NeptunRestController {
     public HashMap<String, String> getQuestionByCode(@PathVariable("code") String code) {
         HashMap<String, String> map = new HashMap<>();
         code = code.toUpperCase(); // na wypadek podania małego 'q'
-        map.put(code, NeptunDAO.findByCode(Question.class, code).getText());
+        Question question = NeptunDAO.findByCode(Question.class, code);
+        map.put(question.getCode(), question.getText());
         return map;
     }
 
