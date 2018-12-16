@@ -89,9 +89,12 @@ public class NeptunRestController {
         HashMap<String, String> map = new HashMap<>();
         code = code.toUpperCase(); // na wypadek podania małego 'q'
         String[] codes = code.split(";"); //rodziela zapytania
+        logger.debug(code);
+
         //dodaje do mapy odpowiedzi
         for(String cd : codes)
         {
+            logger.debug(cd);
             Answer answer = NeptunDAO.findByCode(Answer.class, cd);
             map.put(answer.getCode(), answer.getText());
         }
