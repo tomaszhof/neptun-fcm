@@ -94,7 +94,7 @@ public class NeptunRestController {
         //dodaje do mapy odpowiedzi
         for(String cd : codes)
         {
-            logger.debug("\nCode:" + cd);
+            logger.debug("\nCode:" + cd + "\n");
             Answer answer = NeptunDAO.findByCode(Answer.class, cd);
             map.put(answer.getCode(), answer.getText());
         }
