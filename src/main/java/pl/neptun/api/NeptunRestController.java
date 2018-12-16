@@ -53,9 +53,23 @@ public class NeptunRestController {
             logger.debug("\n\n\n");
 
             if(text != null || code != null)
-                map.put(que.getCode(), que.getText());
+                map.put(que.getCode(), que.getAnswersCodes());
             else
                 logger.debug("\nMamy nulla\n");
+        }
+
+        return map;
+    }
+
+    @GetMapping(path = "/getqueans", produces = MediaType.APPLICATION_JSON_VALUE)
+    public HashMap<String, Object> getAllQueAns() {
+        HashMap<String, Object> map = new HashMap<>();
+        //Get data from service layer into entityList.
+        List<Answer> entityList = NeptunDAO.findAll(Answer.class);
+
+        for(Answer ans : entityList){
+            logger.debug(ans.getText());
+            map.put(ans.getCode(), ans.getText());
         }
 
         return map;
@@ -67,7 +81,7 @@ public class NeptunRestController {
         HashMap<String, String> map = new HashMap<>();
         code = code.toUpperCase(); // na wypadek podania małego 'q'
         Question question = NeptunDAO.findByCode(Question.class, code);
-        map.put(question.getCode(), question.getText());
+        map.put(question.getText(), question.getAnswersCodes());
         return map;
     }
 
