@@ -52,10 +52,10 @@ public class NeptunRestController {
             logger.debug("ID: " + que.getId());
             logger.debug("\n\n\n");
 
-            if(text != null || code != null || que.getAnswersCodes() != null)
-                map.put(que.getCode(), que.getAnswersCodes());
-            else
-                logger.debug("\nMamy nulla\n");
+            //if(text != null || code != null || que.getAnswersCodes() != null)
+            map.put(que.getCode(), que.getAnswersCodes());
+            //else
+            logger.debug(que.getCode() + " : " + que.getAnswersCodes());
         }
 
         return map;
