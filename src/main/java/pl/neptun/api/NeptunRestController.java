@@ -65,7 +65,7 @@ public class NeptunRestController {
                 code = "";
             if(ansCodes == null)
                 ansCodes = "";
-            if(ansCodes.equals("Q0") || ansCodes.equals(" Q0"))
+            if(code.equals("Q0") || code.equals(" Q0"))
                 continue;
 
             map.put(code, text);
