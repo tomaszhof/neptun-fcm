@@ -1,4 +1,5 @@
-﻿Q0;AntyBuggingSystem
+﻿PQ1;Podaj_swój_wiek?
+PQ2;Czy_kiedykolwiek_użytkowałeś?:
 Q1;Czy_kiedykolwiek_użytkowałeś_komputer:?
 Q2;Jaka_jest_twoja_dominująca_ręka:?
 Q3;Czy_używając_mysz_komputerową_twoją_dominującą_ręką_jest:?
@@ -7,7 +8,7 @@ Q5;Czy_zamierzasz_przenosić_komputer:?
 Q6;Czy_zamierzasz_używać_komputera_chodząc_lub_biegając:?
 Q7;Czy_zamierzasz_używać_komputera_tylko_w_domu_lub_pracy:?
 Q8;Czy_umiesz_posługiwać_się_ekranem_dotykowym_(touchscreen):?
-Q9;Preferulej_mniejsze,_czy_większe_urządzenie?_Czy_masz_miejsce_gdzie_postawić_komputer:?
+Q9;Preferujesz_mniejsze,_czy_większe_urządzenie?_Czy_masz_miejsce_gdzie_postawić_komputer:?
 Q10;Czy_powinieneś_nosić_i_nosisz_okulary_lub_szkła_kontaktowe:?
 Q11;Czy_w_okularach_widzisz_dobrze_i_wyraźnie:?
 Q12;Czy_masz_często_zimne_dłonie_lub_palce:?
@@ -31,8 +32,8 @@ Q29;Czy_kształt_(forma)_urządzenia_jest:?
 Q30;Czy_kolorystyka_urządzenia_jest:?
 Q31;Czy_podczas_użytkowania_urządzenia:?
 Q32;Ile_wyniosła_średnia_dokładność_odchylenia_błędu_sterowania(w_przypadku_sterowania_nadążnego):?
-Q33;Ile_wyniosła_liczba_błędów_sterowania_(w_przypadku_sterowania_nienadążnego):?
-Q34;Ile_wyniósł_czas_wykonania_zadania_(w_przypadku_sterowania_nadążnego)[w_minutach]:?
-Q35;Ile_wyniósł_czas_wykonania_zadania_(w_przypadku_sterowania_nienadążnego)[w_minutach]:?
+Q33;Ile_wyniosła_liczba_błędów_sterowania_(w_przypadku_wprowadzania_danych_tekstowych):?
+Q34;Ile_wyniósł_czas_wykonania_zadania_(w_przypadku_sterowania_nadążnego)_[w_minutach]:?
+Q35;Ile_wyniósł_czas_wykonania_zadania_(w_przypadku_wprowadzania_danych_tekstowych)_[w_minutach]:?
 Q36;Jak_oceniasz_wpływ_urządzenia_na_poprawę_negatywnego_odczucia_występujących_u_ciebie_dolegliwości_kończyn_górnych_i_wzroku:?
 Q37;Ile_jesteś_skłonny/a_zapłacić_[w_zł]_za_kupno_takiego_urządzenia_sterowniczego:?
