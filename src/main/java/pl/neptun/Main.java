@@ -16,25 +16,28 @@
 
 package pl.neptun;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-
+import org.jscience.physics.amount.Amount;
+import org.jscience.physics.model.RelativisticModel;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import pl.neptun.importer.AnswersImporter;
 import pl.neptun.importer.QuestionAnswersImporter;
 import pl.neptun.importer.QuestionsImporter;
 import pl.neptun.model.Question;
 import pl.neptun.model.User;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import javax.measure.quantity.Mass;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,20 +48,26 @@ import java.util.List;
 import java.util.Map;
 
 import static javax.measure.unit.SI.KILOGRAM;
-import javax.measure.quantity.Mass;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
-import org.jscience.physics.model.RelativisticModel;
-import org.jscience.physics.amount.Amount;
 
 @Controller
 @SpringBootApplication
 public class Main {
+
+	/*
+	https://stackoverflow.com/questions/44839753/returning-json-object-as-response-in-spring-boot?rq=1
+
+	REFACTOR
+	wystaw JSON'a
+	/api/test
+
+	class NeptunRestController /api
+		/questions
+		/answers
+			ew. jedno po kodzie
+		/Q&A
+
+		http response content type JSON -> wszystkie po bożemu że to json
+	 */
 
 	@Value("${spring.datasource.url}")
 	private String dbUrl;

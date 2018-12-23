@@ -9,6 +9,10 @@ import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+	JSON z QUESTION ITD
+
+ */
 public class NeptunDAO {
 	private static final Logger log = LoggerFactory.getLogger(NeptunDAO.class);
 
