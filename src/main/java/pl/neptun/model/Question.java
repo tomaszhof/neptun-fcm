@@ -50,6 +50,7 @@ public class Question {
 	}
 
 	public void setAnswersCodes(String answersCodes) {
+
 		this.answersCodes = answersCodes;
 	}
 

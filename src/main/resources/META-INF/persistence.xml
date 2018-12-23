@@ -38,6 +38,8 @@
             <property name="hibernate.hikari.dataSource.user" value="brhwlohfhknwuy"/>
             <property name="hibernate.hikari.dataSource.password" value="$8f45da57857e7b8652bb2863517997b490491446709ff240781b11303882cc5a"/>
             <property name="hibernate.jdbc.lob.non_contextual_creation" value="true" />
+
+            <property name="hibernate.hikari.autoCommit" value="false" />
             
             <!-- Uncomment the following two properties for JBoss only -->
             <!-- property name="hibernate.validator.apply_to_ddl" value="false" /-->

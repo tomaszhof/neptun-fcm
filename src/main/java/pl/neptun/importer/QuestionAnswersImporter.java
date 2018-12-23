@@ -1,17 +1,17 @@
 package pl.neptun.importer;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-
 import pl.neptun.jpa.NeptunDAO;
 import pl.neptun.model.Question;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class QuestionAnswersImporter extends FileImporter {
 
@@ -28,7 +28,7 @@ public class QuestionAnswersImporter extends FileImporter {
 		try {
 			logger.debug("loaded data - questions-answers");
 			InputStream resourceInputStream = resource.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(resourceInputStream, "UTF-8"));
+			BufferedReader br = new BufferedReader(new InputStreamReader(resourceInputStream, StandardCharsets.UTF_8));
 
 			String strLine;
 			// Read File Line By Line
@@ -37,22 +37,27 @@ public class QuestionAnswersImporter extends FileImporter {
 				String questionCode = null;
 				String answersCodes = null;
 
+
 				String[] data = strLine.split(":");
 				if (data.length > 1) {
 					questionCode = data[1];
+
 				}
 				if (data.length > 2) {
 					answersCodes = data[2];
-					if ((questionCode != null) && (answersCodes != null)) {
+
+					//if ((questionCode != null) && (answersCodes != null)) {
 						logger.debug("Question: " + questionCode + " Answers: " + answersCodes);
-						Question q = NeptunDAO.findByCode(Question.class, questionCode);
+						Question q = NeptunDAO.findByCode(Question.class, questionCode); //
+						//logger.debug("test: " + q);
 						q.setAnswersCodes(answersCodes);
 						logger.debug("before persist.");
 						em.merge(q);
 						logger.debug("after persist.");
-					}
+					//}
 					logger.debug(strLine);
 				}
+
 			}
 
 			// Close the input stream
@@ -62,7 +67,5 @@ public class QuestionAnswersImporter extends FileImporter {
 			logger.debug("Jakis blad!!!" + e.getMessage());
 			e.printStackTrace();
 		}
-
 	}
-
 }
