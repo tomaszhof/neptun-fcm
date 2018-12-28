@@ -129,7 +129,7 @@ public class NeptunRestController {
 	public void getFile(HttpServletResponse response) {
 		logger.info("BUKA !!! BUKA !!! PROCESSING REQUEST  rules file...");
 		String filePath = "data/";
-		String fileName = "32_RULE_WAY_OF_COMPUTER_PROGRAM.csv";
+		String fileName = "NIEMANAZWY";//"32_RULE_WAY_OF_COMPUTER_PROGRAM.csv";
 		String fileContent = "BUKA";
 		Resource resource = new ClassPathResource(filePath+ fileName);
 		try {
