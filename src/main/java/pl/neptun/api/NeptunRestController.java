@@ -117,12 +117,9 @@ public class NeptunRestController {
 	@RequestMapping(value = "api/rules", method = RequestMethod.GET)
 	@ResponseBody
 	public FileSystemResource getFile() {
-		Resource resource = new ClassPathResource("data/32_RULE_WAY_OF_COMPUTER_PROGRAM.csv");
-	    try {
-			return new FileSystemResource(resource.getFile());
-		} catch (IOException e) {
-			return null;
-		} 
+		FileSystemResource resource = new FileSystemResource("data/32_RULE_WAY_OF_COMPUTER_PROGRAM.csv");
+			return resource;
+		
 	}
 
 
