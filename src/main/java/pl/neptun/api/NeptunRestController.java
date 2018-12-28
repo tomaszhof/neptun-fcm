@@ -18,6 +18,7 @@ import pl.neptun.jpa.NeptunDAO;
 import pl.neptun.model.Answer;
 import pl.neptun.model.Question;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
@@ -134,7 +135,8 @@ public class NeptunRestController {
 		try {
 			logger.info("Read rules file...");
 				InputStream in = resource.getInputStream();
-				fileContent = new BufferedReader(new InputStreamReader(in, "UTF-8")).lines().collect(Collectors.joining("\n"));;
+				fileContent
+				= new BufferedReader(new InputStreamReader(in, "UTF-8")).lines().collect(Collectors.joining("\n"));;
 				FileCopyUtils.copy(fileContent.getBytes(), response.getOutputStream());
 				logger.info("done.");
 			} catch (IOException e) {
@@ -156,5 +158,30 @@ public class NeptunRestController {
 	   
 	}
 
+	@RequestMapping(value = "api/rulestest", method = RequestMethod.GET)
+	@ResponseBody
+	public void export(HttpServletResponse response ) 
+		    throws IOException {
+		    String myString = "Tutaj jakaś buka";
+		    response.setContentType("text/plain");
+		    response.setHeader("Content-Disposition","attachment;filename=myFile.txt");
+		    ServletOutputStream out = response.getOutputStream();
+		    out.println(myString);
+		    out.flush();
+		    out.close();
+		}
+	
+	@RequestMapping(value = "api/rulestest2", method = RequestMethod.GET)
+	@ResponseBody
+	public void export2(HttpServletResponse response ) 
+		    throws IOException {
+		    String myString = "Tutaj jakaś buka";
+		    response.setContentType("text/plain");
+		    response.setHeader("Content-Disposition","attachment;filename=myFile.txt");
+		    ServletOutputStream out = response.getOutputStream();
+		    out.println(myString);
+		    out.flush();
+		    out.close();
+		}
 
 }
