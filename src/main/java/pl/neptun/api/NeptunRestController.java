@@ -3,8 +3,10 @@ package pl.neptun.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.FileSystemResourceLoader;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import pl.neptun.model.Question;
 import javax.transaction.Transactional;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -114,8 +117,12 @@ public class NeptunRestController {
 	@RequestMapping(value = "api/rules", method = RequestMethod.GET)
 	@ResponseBody
 	public FileSystemResource getFile() {
-		FileSystemResourceLoader l = new FileSystemResourceLoader();
-	    return new FileSystemResource((File) l.getResource("data/32_RULE_WAY_OF_COMPUTER_PROGRAM.csv")); 
+		Resource resource = new ClassPathResource("data/32_RULE_WAY_OF_COMPUTER_PROGRAM.csv");
+	    try {
+			return new FileSystemResource(resource.getFile());
+		} catch (IOException e) {
+			return null;
+		} 
 	}
 
 
