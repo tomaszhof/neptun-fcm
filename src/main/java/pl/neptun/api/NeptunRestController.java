@@ -21,13 +21,16 @@ import pl.neptun.model.Question;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -119,30 +122,35 @@ public class NeptunRestController {
 		return "data/32_RULE_WAY_OF_COMPUTER_PROGRAM.csv";
 	}
 	
+	@SuppressWarnings("resource")
 	@RequestMapping(value = "api/rules", method = RequestMethod.GET)
 	@ResponseBody
 	public void getFile(HttpServletResponse response) {
 		String filePath = "data/";
 		String fileName = "32_RULE_WAY_OF_COMPUTER_PROGRAM.csv";
+		String fileContent = "BUKA";
 		FileSystemResource resource = new FileSystemResource(filePath+ fileName);
+		try {
+				InputStream in = new FileInputStream(resource.getFile());
+				fileContent = new BufferedReader(new InputStreamReader(in, "UTF-8")).lines().collect(Collectors.joining("\n"));;
+				FileCopyUtils.copy(fileContent.getBytes(), response.getOutputStream());
+			} catch (IOException e) {
+				try {
+					response.getOutputStream().println("PUSTO TUTAJ!");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		
 //		if (!resource.exists())
 //			return new FileSystemResource("data/PUSTO.csv");
 		
 		response.setContentType("text/plain; charset=utf-8");
 	    response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-	    response.setHeader("Content-Length", String.valueOf(resource.getFile().length()));
+	    response.setHeader("Content-Length", String.valueOf(fileContent.length()));
 		
-	    try {
-			InputStream in = new FileInputStream(resource.getFile());
-			FileCopyUtils.copy(in, response.getOutputStream());
-		} catch (IOException e) {
-			try {
-				response.getOutputStream().println("PUSTO TUTAJ!");
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
+	   
 	}
 
 
