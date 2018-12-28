@@ -131,15 +131,17 @@ public class NeptunRestController {
 		String fileContent = "BUKA";
 		Resource resource = new ClassPathResource(filePath+ fileName);
 		try {
+			logger.debug("Read rules file...");
 				InputStream in = resource.getInputStream();
 				fileContent = new BufferedReader(new InputStreamReader(in, "UTF-8")).lines().collect(Collectors.joining("\n"));;
 				FileCopyUtils.copy(fileContent.getBytes(), response.getOutputStream());
+				logger.debug("done.");
 			} catch (IOException e) {
 				try {
 					response.getOutputStream().println("PUSTO TUTAJ!");
+					logger.error("Reading rules file error!");
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					logger.error("Reading rules file - problem in error handling method.");
 				}
 			}
 		
