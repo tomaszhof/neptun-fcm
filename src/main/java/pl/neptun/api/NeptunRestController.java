@@ -138,6 +138,7 @@ public class NeptunRestController {
 				fileContent
 				= new BufferedReader(new InputStreamReader(in, "UTF-8")).lines().collect(Collectors.joining("\n"));;
 				FileCopyUtils.copy(fileContent.getBytes(), response.getOutputStream());
+				response.getOutputStream().println("PUSTO TUTAJ!");
 				logger.info("done.");
 			} catch (IOException e) {
 				try {
