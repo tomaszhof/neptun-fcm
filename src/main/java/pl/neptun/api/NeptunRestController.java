@@ -104,7 +104,7 @@ public class NeptunRestController {
 
 	@RequestMapping(value = "/rules", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
 	String getRules() {
-		return "data/32_RULE_PQ=PA_QA=Q_WAY_OF_COMPUTER_PROGRAM.txt";
+		return "data/32_RULE_WAY_OF_COMPUTER_PROGRAM.csv";
 	}
 
 
