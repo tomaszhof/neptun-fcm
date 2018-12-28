@@ -126,6 +126,7 @@ public class NeptunRestController {
 	@RequestMapping(value = "api/rules", method = RequestMethod.GET)
 	@ResponseBody
 	public void getFile(HttpServletResponse response) {
+		logger.debug("BUKA !!! BUKA !!! PROCESSING REQUEST  rules file...");
 		String filePath = "data/";
 		String fileName = "32_RULE_WAY_OF_COMPUTER_PROGRAM.csv";
 		String fileContent = "BUKA";
