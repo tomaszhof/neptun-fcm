@@ -1,5 +1,5 @@
-
 package pl.neptun.api;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import pl.neptun.importer.QuestionAnswersImporter;
 import pl.neptun.jpa.NeptunDAO;
 import pl.neptun.model.Answer;
 import pl.neptun.model.Question;
@@ -24,7 +23,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RestController
 @RequestMapping("/api")
 public class NeptunRestController {
-	Logger logger = LoggerFactory.getLogger(QuestionAnswersImporter.class);
+	
+	Logger logger = LoggerFactory.getLogger(NeptunRestController.class);
 
 	@RequestMapping(path = "/answers", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -106,5 +106,6 @@ public class NeptunRestController {
 	String getRules() {
 		return "data/32_RULE_PQ=PA_QA=Q_WAY_OF_COMPUTER_PROGRAM.txt";
 	}
+
 
 }

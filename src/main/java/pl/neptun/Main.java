@@ -43,7 +43,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -78,16 +77,6 @@ public class Main {
 	private EntityManagerFactory emf;
 
 	private void initializeHibernate() {
-		Map<String, String> env = System.getenv();
-		Map<String, Object> configOverrides = new HashMap<String, Object>();
-		// configOverrides.put("hibernate.connection.url", dbUrl);
-		// System.out.println("Set hibernate connection url: " + dbUrl);
-//	  for (String envName : env.keySet()) {
-//	      if (envName.contains("JDBC_DATABASE_URL")) {
-//	          configOverrides.put("hibernate.connection.url", "BUKA");//env.get(envName));    
-//	      }
-//	      // You can put more code in here to populate configOverrides...
-//	  }
 		System.out.println("Set hibernate connection...");
 		emf = Persistence.createEntityManagerFactory("UnitNeptunFCMTest");// , configOverrides);
 		System.out.println("success.");
@@ -104,23 +93,7 @@ public class Main {
 
 	@RequestMapping("/db")
 	String db(Map<String, Object> model) {
-//    try (Connection connection = dataSource.getConnection()) {
-//      Statement stmt = connection.createStatement();
-//      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-//      stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-//      ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
-//
-//      ArrayList<String> output = new ArrayList<String>();
-//      while (rs.next()) {
-//        output.add("Read from DB as TH: " + rs.getTimestamp("tick"));
-//      }
-//
-//      model.put("records", output);
 		return "db";
-//    } catch (Exception e) {
-//      model.put("message", e.getMessage());
-//      return "error";
-//    }
 	}
 
 	@RequestMapping("/test")
@@ -243,16 +216,5 @@ public class Main {
 		model.put("records", output);
 		return "db";
 	}
-	
-//  @Bean
-//  public DataSource dataSource() throws SQLException {
-//    if (dbUrl == null || dbUrl.isEmpty()) {
-//      return new HikariDataSource();
-//    } else {
-//      HikariConfig config = new HikariConfig();
-//      config.setJdbcUrl(dbUrl);
-//      return new HikariDataSource(config);
-//    }
-//  }
 
 }
