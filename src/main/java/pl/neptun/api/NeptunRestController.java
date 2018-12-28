@@ -126,17 +126,17 @@ public class NeptunRestController {
 	@RequestMapping(value = "api/rules", method = RequestMethod.GET)
 	@ResponseBody
 	public void getFile(HttpServletResponse response) {
-		logger.debug("BUKA !!! BUKA !!! PROCESSING REQUEST  rules file...");
+		logger.info("BUKA !!! BUKA !!! PROCESSING REQUEST  rules file...");
 		String filePath = "data/";
 		String fileName = "32_RULE_WAY_OF_COMPUTER_PROGRAM.csv";
 		String fileContent = "BUKA";
 		Resource resource = new ClassPathResource(filePath+ fileName);
 		try {
-			logger.debug("Read rules file...");
+			logger.info("Read rules file...");
 				InputStream in = resource.getInputStream();
 				fileContent = new BufferedReader(new InputStreamReader(in, "UTF-8")).lines().collect(Collectors.joining("\n"));;
 				FileCopyUtils.copy(fileContent.getBytes(), response.getOutputStream());
-				logger.debug("done.");
+				logger.info("done.");
 			} catch (IOException e) {
 				try {
 					response.getOutputStream().println("PUSTO TUTAJ!");
