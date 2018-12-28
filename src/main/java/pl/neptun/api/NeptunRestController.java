@@ -17,6 +17,7 @@ import pl.neptun.jpa.NeptunDAO;
 import pl.neptun.model.Answer;
 import pl.neptun.model.Question;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import java.io.File;
@@ -116,10 +117,17 @@ public class NeptunRestController {
 	
 	@RequestMapping(value = "api/rules", method = RequestMethod.GET)
 	@ResponseBody
-	public FileSystemResource getFile() {
-		FileSystemResource resource = new FileSystemResource("data/32_RULE_WAY_OF_COMPUTER_PROGRAM.csv");
+	public FileSystemResource getFile(HttpServletResponse response) {
+		String filePath = "data/";
+		String fileName = "32_RULE_WAY_OF_COMPUTER_PROGRAM.csv";
+		FileSystemResource resource = new FileSystemResource(filePath+ fileName);
 		if (!resource.exists())
-			new FileSystemResource("data/PUSTOPUSTO.csv");
+			return new FileSystemResource("data/PUSTO.csv");
+		
+		response.setContentType(MediaType.TEXT_PLAIN_VALUE);
+	    response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+	    response.setHeader("Content-Length", String.valueOf(resource.getFile().length()));
+		
 		
 		return resource;
 		
