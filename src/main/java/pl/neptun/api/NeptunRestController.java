@@ -8,6 +8,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +22,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 
@@ -117,20 +121,28 @@ public class NeptunRestController {
 	
 	@RequestMapping(value = "api/rules", method = RequestMethod.GET)
 	@ResponseBody
-	public FileSystemResource getFile(HttpServletResponse response) {
+	public void getFile(HttpServletResponse response) {
 		String filePath = "data/";
 		String fileName = "32_RULE_WAY_OF_COMPUTER_PROGRAM.csv";
 		FileSystemResource resource = new FileSystemResource(filePath+ fileName);
-		if (!resource.exists())
-			return new FileSystemResource("data/PUSTO.csv");
+//		if (!resource.exists())
+//			return new FileSystemResource("data/PUSTO.csv");
 		
 		response.setContentType(MediaType.TEXT_PLAIN_VALUE);
 	    response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
 	    response.setHeader("Content-Length", String.valueOf(resource.getFile().length()));
 		
-		
-		return resource;
-		
+	    try {
+			InputStream in = new FileInputStream(resource.getFile());
+			FileCopyUtils.copy(in, response.getOutputStream());
+		} catch (IOException e) {
+			try {
+				response.getOutputStream().println("PUSTO TUTAJ!");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 	}
 
 
