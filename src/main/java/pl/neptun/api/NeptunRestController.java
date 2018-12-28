@@ -128,7 +128,7 @@ public class NeptunRestController {
 //		if (!resource.exists())
 //			return new FileSystemResource("data/PUSTO.csv");
 		
-		response.setContentType(MediaType.TEXT_PLAIN_VALUE);
+		response.setContentType("text/plain; charset=utf-8");
 	    response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
 	    response.setHeader("Content-Length", String.valueOf(resource.getFile().length()));
 		
