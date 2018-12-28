@@ -18,7 +18,6 @@ import pl.neptun.jpa.NeptunDAO;
 import pl.neptun.model.Answer;
 import pl.neptun.model.Question;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
@@ -118,28 +117,19 @@ public class NeptunRestController {
 		return map;
 	}
 
-	@RequestMapping(value = "/rules", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
-	String getRules() {
-		return "data/32_RULE_WAY_OF_COMPUTER_PROGRAM.csv";
-	}
 	
 	@SuppressWarnings("resource")
-	@RequestMapping(value = "api/rules", method = RequestMethod.GET)
+	@RequestMapping(value = "/rules", method = RequestMethod.GET)
 	@ResponseBody
 	public void getFile(HttpServletResponse response) {
-		logger.info("BUKA !!! BUKA !!! PROCESSING REQUEST  rules file...");
 		String filePath = "data/";
-		String fileName = "NIEMANAZWY";//"32_RULE_WAY_OF_COMPUTER_PROGRAM.csv";
+		String fileName = "32_RULE_WAY_OF_COMPUTER_PROGRAM.csv";
 		String fileContent = "BUKA";
 		Resource resource = new ClassPathResource(filePath+ fileName);
 		try {
-			logger.info("Read rules file...");
 				InputStream in = resource.getInputStream();
-				fileContent
-				= new BufferedReader(new InputStreamReader(in, "UTF-8")).lines().collect(Collectors.joining("\n"));;
+				fileContent = new BufferedReader(new InputStreamReader(in, "UTF-8")).lines().collect(Collectors.joining("\n"));;
 				FileCopyUtils.copy(fileContent.getBytes(), response.getOutputStream());
-				response.getOutputStream().println("PUSTO TUTAJ!");
-				logger.info("done.");
 			} catch (IOException e) {
 				try {
 					response.getOutputStream().println("PUSTO TUTAJ!");
@@ -159,30 +149,5 @@ public class NeptunRestController {
 	   
 	}
 
-	@RequestMapping(value = "api/rulestest", method = RequestMethod.GET)
-	@ResponseBody
-	public void export(HttpServletResponse response ) 
-		    throws IOException {
-		    String myString = "Tutaj jakaś buka";
-		    response.setContentType("text/plain");
-		    response.setHeader("Content-Disposition","attachment;filename=myFile.txt");
-		    ServletOutputStream out = response.getOutputStream();
-		    out.println(myString);
-		    out.flush();
-		    out.close();
-		}
-	
-	@RequestMapping(value = "api/rulestest2", method = RequestMethod.POST, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	@ResponseBody
-	public void export2(HttpServletResponse response ) 
-		    throws IOException {
-		    String myString = "{ Tutaj jakaś buka}";
-		    response.setContentType("text/plain");
-		    response.setHeader("Content-Disposition","attachment;filename=myFile.txt");
-		    ServletOutputStream out = response.getOutputStream();
-		    out.println(myString);
-		    out.flush();
-		    out.close();
-		}
 
 }
