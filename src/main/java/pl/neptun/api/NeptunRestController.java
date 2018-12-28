@@ -129,9 +129,9 @@ public class NeptunRestController {
 		String filePath = "data/";
 		String fileName = "32_RULE_WAY_OF_COMPUTER_PROGRAM.csv";
 		String fileContent = "BUKA";
-		FileSystemResource resource = new FileSystemResource(filePath+ fileName);
+		Resource resource = new ClassPathResource(filePath+ fileName);
 		try {
-				InputStream in = new FileInputStream(resource.getFile());
+				InputStream in = resource.getInputStream();
 				fileContent = new BufferedReader(new InputStreamReader(in, "UTF-8")).lines().collect(Collectors.joining("\n"));;
 				FileCopyUtils.copy(fileContent.getBytes(), response.getOutputStream());
 			} catch (IOException e) {
