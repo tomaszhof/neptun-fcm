@@ -118,7 +118,10 @@ public class NeptunRestController {
 	@ResponseBody
 	public FileSystemResource getFile() {
 		FileSystemResource resource = new FileSystemResource("data/32_RULE_WAY_OF_COMPUTER_PROGRAM.csv");
-			return resource;
+		if (!resource.exists())
+			new FileSystemResource("data/PUSTOPUSTO.csv");
+		
+		return resource;
 		
 	}
 
