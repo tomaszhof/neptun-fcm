@@ -171,11 +171,11 @@ public class NeptunRestController {
 		    out.close();
 		}
 	
-	@RequestMapping(value = "api/rulestest2", method = RequestMethod.GET)
+	@RequestMapping(value = "api/rulestest2", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public void export2(HttpServletResponse response ) 
 		    throws IOException {
-		    String myString = "Tutaj jakaś buka";
+		    String myString = "{ Tutaj jakaś buka}";
 		    response.setContentType("text/plain");
 		    response.setHeader("Content-Disposition","attachment;filename=myFile.txt");
 		    ServletOutputStream out = response.getOutputStream();
