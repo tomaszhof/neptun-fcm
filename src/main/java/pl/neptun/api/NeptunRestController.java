@@ -171,7 +171,7 @@ public class NeptunRestController {
 		    out.close();
 		}
 	
-	@RequestMapping(value = "api/rulestest2", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "api/rulestest2", method = RequestMethod.POST, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public void export2(HttpServletResponse response ) 
 		    throws IOException {
