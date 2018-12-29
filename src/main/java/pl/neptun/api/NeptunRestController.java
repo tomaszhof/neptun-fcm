@@ -128,8 +128,7 @@ public class NeptunRestController {
 		Resource resource = new ClassPathResource(filePath+ fileName);
 		try {
 				InputStream in = resource.getInputStream();
-				fileContent = new BufferedReader(new InputStreamReader(in, "UTF-8")).lines().collect(Collectors.joining("\n"));;
-				//FileCopyUtils.copy(fileContent.getBytes(), response.getOutputStream());
+				fileContent = new BufferedReader(new InputStreamReader(in, "UTF-8")).lines().collect(Collectors.joining("\n"));
 			} catch (IOException e) {
 					fileContent = "RULES FILE NOT FOUND!";
 					logger.error("Reading rules file error!");
@@ -137,9 +136,6 @@ public class NeptunRestController {
 			}
 		
 		return fileContent;
-		//response.setContentType("text/plain; charset=utf-8");
-	    //response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-	    //response.setHeader("Content-Length", String.valueOf(fileContent.length()));
 		
 	   
 	}
