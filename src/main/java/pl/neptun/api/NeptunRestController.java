@@ -121,7 +121,7 @@ public class NeptunRestController {
 	@SuppressWarnings("resource")
 	@RequestMapping(value = "/rules", method = RequestMethod.GET, produces=MediaType.TEXT_PLAIN_VALUE)
 	@ResponseBody
-	public void getFile(HttpServletResponse response) {
+	public String getFile() {
 		String filePath = "data/";
 		String fileName = "32_RULE_WAY_OF_COMPUTER_PROGRAM.csv";
 		String fileContent = "NO CONTENT";
@@ -129,20 +129,17 @@ public class NeptunRestController {
 		try {
 				InputStream in = resource.getInputStream();
 				fileContent = new BufferedReader(new InputStreamReader(in, "UTF-8")).lines().collect(Collectors.joining("\n"));;
-				FileCopyUtils.copy(fileContent.getBytes(), response.getOutputStream());
+				//FileCopyUtils.copy(fileContent.getBytes(), response.getOutputStream());
 			} catch (IOException e) {
-				try {
-					response.getOutputStream().println("RULES FILE NOT FOUND!");
+					fileContent = "RULES FILE NOT FOUND!";
 					logger.error("Reading rules file error!");
-				} catch (IOException e1) {
-					logger.error("Reading rules file - problem in error handling method.");
-				}
+				
 			}
 		
-		
+		return fileContent;
 		//response.setContentType("text/plain; charset=utf-8");
 	    //response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-	    response.setHeader("Content-Length", String.valueOf(fileContent.length()));
+	    //response.setHeader("Content-Length", String.valueOf(fileContent.length()));
 		
 	   
 	}
