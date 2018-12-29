@@ -140,8 +140,8 @@ public class NeptunRestController {
 			}
 		
 		
-		response.setContentType("text/plain; charset=utf-8");
-	    response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+		//response.setContentType("text/plain; charset=utf-8");
+	    //response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
 	    response.setHeader("Content-Length", String.valueOf(fileContent.length()));
 		
 	   
