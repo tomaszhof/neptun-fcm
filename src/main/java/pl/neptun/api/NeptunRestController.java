@@ -119,7 +119,7 @@ public class NeptunRestController {
 
 	
 	@SuppressWarnings("resource")
-	@RequestMapping(value = "/rules", method = RequestMethod.GET)
+	@RequestMapping(value = "/rules", method = RequestMethod.GET, produces=MediaType.TEXT_PLAIN_VALUE)
 	@ResponseBody
 	public void getFile(HttpServletResponse response) {
 		String filePath = "data/";
