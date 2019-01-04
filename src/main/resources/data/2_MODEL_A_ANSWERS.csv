@@ -94,7 +94,7 @@ A58;Pisać
 A59;Długość_ręki_130-170
 A60;Długość_ręki_171-180
 A61;Długość_ręki_181-190
-A62;długość_ręki_191-200
+A62;Długość_ręki_191-200
 A63;Długość_ręki_201-240
 A64;Długość_dłoni_70-100
 A65;Długość_dłoni_101-110
@@ -241,3 +241,11 @@ A205;91-120
 A206;61-90
 A207;31-60
 A208;0-30
+A209;Inny
+A210;Żadna_z_powyższych
+A211;Żadna_z_powyższych
+A212;Żadna_z_powyższych
+A213;Żadna_z_powyższych
+A214;Żadna_z_powyższych
+A215;Żadna_z_powyższych
+A216;Żadna_z_powyższych
