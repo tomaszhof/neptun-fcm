@@ -81,7 +81,7 @@
     <dependency>
       <groupId>com.zaxxer</groupId>
       <artifactId>HikariCP</artifactId>
-      <version>2.6.1</version>
+      <version>3.3.0</version>
     </dependency>
     <dependency>
       <groupId>org.jscience</groupId>
@@ -199,6 +199,11 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.heroku.sdk</groupId>
+        <artifactId>heroku-maven-plugin</artifactId>
+        <version>2.0.6</version>
       </plugin>
     </plugins>
   </build>

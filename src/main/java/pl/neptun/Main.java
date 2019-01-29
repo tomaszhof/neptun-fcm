@@ -24,12 +24,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.WebRequest;
+
 import pl.neptun.importer.AnswersImporter;
 import pl.neptun.importer.QuestionAnswersImporter;
 import pl.neptun.importer.QuestionsImporter;
 import pl.neptun.model.Question;
 import pl.neptun.model.User;
+import pl.neptun.model.dto.UserDto;
 
 import javax.measure.quantity.Mass;
 import javax.persistence.EntityManager;
@@ -215,6 +220,13 @@ public class Main {
 		}
 		model.put("records", output);
 		return "db";
+	}
+	
+	@RequestMapping(value = "/registration/user", method = RequestMethod.GET)
+	public String showRegistrationForm(WebRequest request, Model model) {
+	    UserDto userDto = new UserDto();
+	    model.addAttribute("user", userDto);
+	    return "registration";
 	}
 
 }
