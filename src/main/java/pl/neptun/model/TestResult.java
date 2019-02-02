@@ -46,7 +46,7 @@ public class TestResult {
 
 	private Long integralU;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "user_id", updatable=false, insertable=false)
 	private User user;
 

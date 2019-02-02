@@ -2,7 +2,9 @@ package pl.neptun.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,8 +45,7 @@ public class User implements UserDetails {
 	
 	@OneToMany
 	@JoinColumn(name="user_id", nullable=false)
-	@OrderColumn(name="order")
-    private List<TestResult> testsResults = new ArrayList<>();
+    private Set<TestResult> testsResults = new HashSet<>();
 	
 	public User()
 	{
@@ -141,11 +142,11 @@ public class User implements UserDetails {
 		this.lastName = lastName;
 	}
 
-	public List<TestResult> getTestsResults() {
+	public Set<TestResult> getTestsResults() {
 		return testsResults;
 	}
 
-	public void setTestsResults(List<TestResult> testsResults) {
+	public void setTestsResults(Set<TestResult> testsResults) {
 		this.testsResults = testsResults;
 	}
 
