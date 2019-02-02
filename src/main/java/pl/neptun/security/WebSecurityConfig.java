@@ -1,21 +1,22 @@
 package pl.neptun.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import pl.neptun.service.UserDetailsServiceImpl;
+//import pl.neptun.service.UserDetailsServiceImpl;
 
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-    private UserDetailsServiceImpl userDetailsService;
+//	@Autowired
+//    private UserDetailsServiceImpl userDetailsService;
+//	
+//	@Autowired
+//	private NeptunAutheticationProvider authenticationProvider;
 	
 	@Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -25,7 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/admin/api/**").hasAnyRole("USER")
+                .antMatchers("/admin/api/**").permitAll() //.authenticated()
                 .antMatchers("/api/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
@@ -37,14 +38,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.inMemoryAuthentication()
-//                .withUser("admin").password("admin").roles("ADMIN")
+//                .withUser("neptun").password("buka").roles("ADMIN")
 //                .and()
 //                .withUser("guest").password("guest").roles("GUEST");
 //    }
     
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
-    }
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+//    }
 
 }

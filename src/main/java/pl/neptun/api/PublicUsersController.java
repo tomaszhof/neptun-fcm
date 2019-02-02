@@ -14,7 +14,7 @@ import pl.neptun.service.UserAuthenticationService;
 import pl.neptun.service.UsersRepository;
 
 @RestController
-@RequestMapping("/public/users")
+@RequestMapping("/api/users")
 final class PublicUsersController {
 
   Logger logger = LoggerFactory.getLogger(PublicUsersController.class);
@@ -32,6 +32,8 @@ final class PublicUsersController {
   String register(
     @RequestParam("username") final String username,
     @RequestParam("password") final String password) {
+	  if (usersRepository.findTopByUsername(username) != null)
+		  return "cannot create user";
 	  User user = new User();
 	  user.setUsername(username);
 	  user.setPassword(password);
@@ -52,7 +54,7 @@ final class PublicUsersController {
     @RequestParam("password") final String password) {
 	  
     if (authentication.login(username, password))
-    	return password;
+    	return username;
     else return "NoTlOgEd";
   }
 }

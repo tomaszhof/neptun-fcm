@@ -1,10 +1,15 @@
 package pl.neptun.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -35,6 +40,11 @@ public class User implements UserDetails {
 	private String password;
 
 	private String role;
+	
+	@OneToMany
+	@JoinColumn(name="user_id", nullable=false)
+	@OrderColumn(name="order")
+    private List<TestResult> testsResults = new ArrayList<>();
 	
 	public User()
 	{
@@ -129,6 +139,14 @@ public class User implements UserDetails {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public List<TestResult> getTestsResults() {
+		return testsResults;
+	}
+
+	public void setTestsResults(List<TestResult> testsResults) {
+		this.testsResults = testsResults;
 	}
 
 }

@@ -6,19 +6,18 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import pl.neptun.importer.QuestionsImporter;
 import pl.neptun.model.User;
 
+//only that class is currently used to neptun auth
 @Service
 public final class UserAuthenticationService {
 
 	Logger logger = LoggerFactory.getLogger(UserAuthenticationService.class);
 	
-	@NonNull
+	@Autowired
 	UsersRepository usersRepository;
 
 	@Autowired
@@ -28,7 +27,7 @@ public final class UserAuthenticationService {
 
 	public boolean login(final String username, final String password) {
 		try {
-			User u = usersRepository.findByUsername(username);
+			User u = usersRepository.findTopByUsername(username);
 			if (u != null) {
 				logger.debug("User login found...");
 				if (bCryptPasswordEncoder.matches(password, u.getPassword())) {
@@ -37,7 +36,8 @@ public final class UserAuthenticationService {
 					return true;
 				}
 			}
-		} catch (Exception ignore) {
+		} catch (Exception ex) {
+			logger.debug("Logging error: " + ex.getMessage());
 		}
 		logger.debug("User password BAD.");
 		return false;
