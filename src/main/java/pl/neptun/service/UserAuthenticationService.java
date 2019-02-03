@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import pl.neptun.jpa.UsersRepository;
 import pl.neptun.model.User;
 
 //only that class is currently used to neptun auth

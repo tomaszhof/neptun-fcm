@@ -1,4 +1,4 @@
-package pl.neptun.service;
+package pl.neptun.jpa;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;

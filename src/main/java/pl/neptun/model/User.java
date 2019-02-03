@@ -2,10 +2,9 @@ package pl.neptun.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -43,9 +42,10 @@ public class User implements UserDetails {
 
 	private String role;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="user_id", nullable=false)
-    private Set<TestResult> testsResults = new HashSet<>();
+	@OrderColumn(nullable=false)
+    private List<TestResult> testsResults = new ArrayList<>();
 	
 	public User()
 	{
@@ -142,11 +142,11 @@ public class User implements UserDetails {
 		this.lastName = lastName;
 	}
 
-	public Set<TestResult> getTestsResults() {
+	public List<TestResult> getTestsResults() {
 		return testsResults;
 	}
 
-	public void setTestsResults(Set<TestResult> testsResults) {
+	public void setTestsResults(List<TestResult> testsResults) {
 		this.testsResults = testsResults;
 	}
 

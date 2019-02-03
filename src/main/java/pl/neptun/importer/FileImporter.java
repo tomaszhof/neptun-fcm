@@ -1,28 +1,27 @@
 package pl.neptun.importer;
 
-import javax.persistence.EntityManager;
 
-import pl.neptun.jpa.NeptunJPA;
 
 public abstract class FileImporter {
 	
 	protected String path;
 	protected String fileName;
-	protected EntityManager em = NeptunJPA.em();
+	//protected EntityManager em = NeptunJPA.em();
 	
-	public FileImporter(String fileName) {
+	public FileImporter() {
 		this.path = "data/";
-		this.fileName = fileName;
+		this.fileName = null;
 	}
 	
 	abstract public void processData();
 	
-	public void doImport() {
-		NeptunJPA.importBegin(NeptunJPA.TRANSACTION_CARDINALITY);
-		//em.getTransaction().begin();
+	public void doImport(String fileName) {
+		this.fileName = fileName;
+		//NeptunJPA.importBegin(NeptunJPA.TRANSACTION_CARDINALITY);
+		////em.getTransaction().begin();
 		processData();
-		//em.getTransaction().commit();
-		NeptunJPA.importEnd(NeptunJPA.TRANSACTION_CARDINALITY);
+		////em.getTransaction().commit();
+		//NeptunJPA.importEnd(NeptunJPA.TRANSACTION_CARDINALITY);
 	}
 	
 }

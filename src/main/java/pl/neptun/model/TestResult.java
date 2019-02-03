@@ -1,15 +1,12 @@
 package pl.neptun.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+//import com.fasterxml.jackson.annotation.JsonCreator;
+//import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "tests_results")
@@ -18,15 +15,15 @@ public class TestResult {
 	public TestResult() {
 	}
 	
-	@JsonCreator
-	TestResult(@JsonProperty("id") final Long id, @JsonProperty("beforeAnswers") final String beforeAnswers,
-			@JsonProperty("afterAnswers") final String afterAnswers, @JsonProperty("shortestPath") final Long shortestPath) {
-		super();
-		this.id = id;
-		this.beforeAnswers = beforeAnswers;
-		this.afterAnswers = afterAnswers;
-		this.shortestPath = shortestPath;
-	}
+//	@JsonCreator
+//	TestResult(@JsonProperty("id") final Long id, @JsonProperty("beforeAnswers") final String beforeAnswers,
+//			@JsonProperty("afterAnswers") final String afterAnswers, @JsonProperty("shortestPath") final Long shortestPath) {
+//		super();
+//		this.id = id;
+//		this.beforeAnswers = beforeAnswers;
+//		this.afterAnswers = afterAnswers;
+//		this.shortestPath = shortestPath;
+//	}
 
 	@Id
 	@GeneratedValue
@@ -46,9 +43,10 @@ public class TestResult {
 
 	private Long integralU;
 
-	@ManyToOne
-	@JoinColumn(name = "user_id", updatable=false, insertable=false)
-	private User user;
+//	@ManyToOne
+//	@JoinColumn(name = "user_id", updatable=false, insertable=false)
+//	@NotNull
+//	private User user;
 
 	public Long getId() {
 		return id;
@@ -114,12 +112,12 @@ public class TestResult {
 		this.integralU = integralU;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 
 }

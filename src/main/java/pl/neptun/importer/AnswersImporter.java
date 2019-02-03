@@ -7,16 +7,24 @@ import java.io.InputStreamReader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import pl.neptun.jpa.AnswersRepository;
 import pl.neptun.model.Answer;
 
+@Component
 public class AnswersImporter extends FileImporter {
 	Logger logger = LoggerFactory.getLogger(AnswersImporter.class);
-
-	public AnswersImporter(String fileName) {
-		super(fileName);
+	
+	@Autowired
+	private AnswersRepository answersRepository;
+	
+	public AnswersImporter() {
+		super();
 	}
 
 	@Override
@@ -48,7 +56,8 @@ public class AnswersImporter extends FileImporter {
 					a.setCode(answerCode);
 					a.setText(answerText);
 					logger.debug("before persist.");
-					em.merge(a);
+					//em.merge(a);
+					answersRepository.save(a);
 					logger.debug("after persist.");
 				}
 				logger.debug(strLine);

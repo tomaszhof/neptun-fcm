@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import pl.neptun.jpa.TestResultsRepository;
+import pl.neptun.jpa.UsersRepository;
 import pl.neptun.model.TestResult;
 import pl.neptun.model.User;
-import pl.neptun.service.TestResultsRepository;
 import pl.neptun.service.UserAuthenticationService;
-import pl.neptun.service.UsersRepository;
 
 @RestController
 @RequestMapping("admin/api/users")
@@ -28,9 +28,9 @@ final class SecuredUsersController {
 
 	@Autowired
 	private UsersRepository usersRepository;
-
-	@Autowired
-	private TestResultsRepository testsResultsRepository;
+//
+//	@Autowired
+//	private TestResultsRepository testsResultsRepository;
 
 	@GetMapping("/all")
 	public List<User> retrieveAllUsers() {
@@ -63,8 +63,17 @@ final class SecuredUsersController {
 		return true;
 	}
 
-	@RequestMapping(value="results/", method = RequestMethod.POST, consumes = "application/json")
-	public @ResponseBody TestResult saveSpittle(@RequestBody TestResult testResult) {
-		return testsResultsRepository.save(testResult);
+	@RequestMapping(value="/{id}/results/", method = RequestMethod.POST, consumes = "application/json")
+	public @ResponseBody TestResult saveTestResult(@PathVariable long id, @RequestBody TestResult testResult) {
+		Optional<User> u = usersRepository.findById(id);
+		if (u.isPresent()) {
+			User user = u.get();
+//			testResult = testsResultsRepository.save(testResult);
+			user.getTestsResults().add(testResult);
+			usersRepository.save(user);
+			return testResult;
+		}
+		
+		return null;
 	}
 }

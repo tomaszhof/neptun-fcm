@@ -7,6 +7,7 @@ import javax.persistence.Persistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Deprecated
 public class NeptunJPA {
 	private static final Logger log = LoggerFactory.getLogger(NeptunJPA.class);
 	

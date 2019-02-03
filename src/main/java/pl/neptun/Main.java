@@ -18,6 +18,7 @@ package pl.neptun;
 
 import org.jscience.physics.amount.Amount;
 import org.jscience.physics.model.RelativisticModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -39,7 +40,6 @@ import pl.neptun.model.dto.UserDto;
 import javax.measure.quantity.Mass;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -80,11 +80,21 @@ public class Main {
 //  private DataSource dataSource;
 
 	private EntityManagerFactory emf;
+	
+	@Autowired
+	private QuestionsImporter qi;
+	
+	@Autowired
+	private AnswersImporter ai;
 
+	@Autowired
+	private QuestionAnswersImporter qai;
+	
+	@Deprecated
 	private void initializeHibernate() {
-		System.out.println("Set hibernate connection...");
-		emf = Persistence.createEntityManagerFactory("UnitNeptunFCMTest");// , configOverrides);
-		System.out.println("success.");
+//		System.out.println("Set hibernate connection...");
+//		emf = Persistence.createEntityManagerFactory("UnitNeptunFCMTest");// , configOverrides);
+//		System.out.println("success.");
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -199,17 +209,17 @@ public class Main {
 
 	@RequestMapping("/importer")
 	String importData(Map<String, Object> model) {
-		QuestionsImporter qi = new QuestionsImporter("1_MODEL_Q_QUESTIONS.csv");
-		AnswersImporter ai = new AnswersImporter("2_MODEL_A_ANSWERS.csv");
-		QuestionAnswersImporter qai = new QuestionAnswersImporter("3_MODEL_QA_QUESTIONS_AND_ANSWERS_TOGETHER.csv");
+//		QuestionsImporter qi = new QuestionsImporter();
+//		AnswersImporter ai = new AnswersImporter();
+//		QuestionAnswersImporter qai = new QuestionAnswersImporter();
 		ArrayList<String> output = new ArrayList<String>();
 		output.add("loading questions...");
 		try {
-			qi.doImport();
+			qi.doImport("1_MODEL_Q_QUESTIONS.csv");
 			output.add("loaded data - questions");
-			ai.doImport();
+			ai.doImport("2_MODEL_A_ANSWERS.csv");
 			output.add("loaded data - answers");
-			qai.doImport();
+			qai.doImport("3_MODEL_QA_QUESTIONS_AND_ANSWERS_TOGETHER.csv");
 			output.add("loaded data - questions-answers");
 			
 		} catch (Exception e) {

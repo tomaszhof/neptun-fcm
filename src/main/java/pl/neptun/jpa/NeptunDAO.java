@@ -13,6 +13,7 @@ import java.util.List;
 	JSON z QUESTION ITD
 
  */
+@Deprecated
 public class NeptunDAO {
 	private static final Logger log = LoggerFactory.getLogger(NeptunDAO.class);
 

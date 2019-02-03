@@ -2,9 +2,12 @@ package pl.neptun.importer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import pl.neptun.jpa.NeptunDAO;
+import org.springframework.stereotype.Component;
+
+import pl.neptun.jpa.QuestionsRepository;
 import pl.neptun.model.Question;
 
 import java.io.BufferedReader;
@@ -13,12 +16,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
+@Component
 public class QuestionAnswersImporter extends FileImporter {
 
 	Logger logger = LoggerFactory.getLogger(QuestionAnswersImporter.class);
 
-	public QuestionAnswersImporter(String fileName) {
-		super(fileName);
+	@Autowired
+	private QuestionsRepository questionsRepository;
+	
+	public QuestionAnswersImporter() {
+		super();
 	}
 
 	@Override
@@ -48,11 +55,12 @@ public class QuestionAnswersImporter extends FileImporter {
 
 					//if ((questionCode != null) && (answersCodes != null)) {
 						logger.debug("Question: " + questionCode + " Answers: " + answersCodes);
-						Question q = NeptunDAO.findByCode(Question.class, questionCode);
+						Question q = questionsRepository.findByCode(questionCode);//NeptunDAO.findByCode(Question.class, questionCode);
 						//logger.debug("test: " + q);
-						q.setAnswersCodes(answersCodes);
+						//q.setAnswersCodes(answersCodes);
 						logger.debug("before persist.");
-						em.merge(q);
+						//em.merge(q);
+						questionsRepository.save(q);
 						logger.debug("after persist.");
 					//}
 					logger.debug(strLine);

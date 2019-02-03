@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import pl.neptun.jpa.UsersRepository;
 import pl.neptun.model.User;
 import pl.neptun.service.UserAuthenticationService;
-import pl.neptun.service.UsersRepository;
 
 @RestController
 @RequestMapping("/api/users")
