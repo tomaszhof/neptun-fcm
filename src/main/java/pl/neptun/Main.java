@@ -25,6 +25,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -207,6 +208,7 @@ public class Main {
 		return "db";
 	}
 
+	@Transactional
 	@RequestMapping("/importer")
 	String importData(Map<String, Object> model) {
 //		QuestionsImporter qi = new QuestionsImporter();

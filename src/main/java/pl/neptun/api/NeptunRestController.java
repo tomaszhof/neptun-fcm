@@ -93,11 +93,11 @@ public class NeptunRestController {
 	// zwraca "pytanie:możliwe kody odpowiedzi"
 	@RequestMapping(value = "/question/{code}", produces = MediaType.APPLICATION_JSON_VALUE, method = GET)
 	@ResponseBody
+	@Transactional(Transactional.TxType.REQUIRED)
 	public HashMap<String, String> getQuestionByCode(@PathVariable("code") String code) {
 		HashMap<String, String> map = new HashMap<>();
 		code = code.toUpperCase(); // na wypadek podania małego 'q'
 		Question question = questionsRepository.findByCode(code);
-		logger.debug(code + " TEST" + question.getAnswersCodes());
 		map.put(question.getCode(), question.getAnswersCodes());
 		return map;
 	}

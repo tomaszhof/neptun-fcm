@@ -18,7 +18,8 @@ public class Question {
 	
 	@Lob
 	private String text;
-	
+
+	@Lob
 	private String answersCodes;
 
 	public Long getId() {
@@ -50,7 +51,6 @@ public class Question {
 	}
 
 	public void setAnswersCodes(String answersCodes) {
-
 		this.answersCodes = answersCodes;
 	}
 

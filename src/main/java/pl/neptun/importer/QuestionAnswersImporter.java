@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import pl.neptun.jpa.QuestionsRepository;
 import pl.neptun.model.Question;
 
+import javax.transaction.Transactional;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,7 +29,9 @@ public class QuestionAnswersImporter extends FileImporter {
 		super();
 	}
 
+
 	@Override
+	@javax.transaction.Transactional(Transactional.TxType.REQUIRED)
 	public void processData() {
 		Resource resource = new ClassPathResource(path + fileName);
 		logger.debug("loading questions-answers...");
@@ -57,7 +60,7 @@ public class QuestionAnswersImporter extends FileImporter {
 						logger.debug("Question: " + questionCode + " Answers: " + answersCodes);
 						Question q = questionsRepository.findByCode(questionCode);//NeptunDAO.findByCode(Question.class, questionCode);
 						//logger.debug("test: " + q);
-						//q.setAnswersCodes(answersCodes);
+						q.setAnswersCodes(answersCodes);
 						logger.debug("before persist.");
 						//em.merge(q);
 						questionsRepository.save(q);
