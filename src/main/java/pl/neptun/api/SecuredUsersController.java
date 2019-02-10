@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import pl.neptun.jpa.TestResultsRepository;
 import pl.neptun.jpa.UsersRepository;
 import pl.neptun.model.TestResult;
 import pl.neptun.model.User;
