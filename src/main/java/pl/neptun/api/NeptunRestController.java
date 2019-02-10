@@ -3,6 +3,7 @@ package pl.neptun.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import pl.neptun.jpa.NeptunDAO;
+import pl.neptun.jpa.QuestionsRepository;
 import pl.neptun.model.Answer;
 import pl.neptun.model.Question;
 
@@ -31,6 +33,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RestController
 @RequestMapping("/api")
 public class NeptunRestController {
+
+	@Autowired
+	private QuestionsRepository questionsRepository;
 	
 	Logger logger = LoggerFactory.getLogger(NeptunRestController.class);
 
@@ -63,6 +68,7 @@ public class NeptunRestController {
 		// Get data from service layer into entityList.
 		List<Question> entityList = NeptunDAO.findAll(Question.class);
 
+
 		for (Question que : entityList) {
 			String text = que.getText();
 			String code = que.getCode();
@@ -86,7 +92,7 @@ public class NeptunRestController {
 	public HashMap<String, String> getQuestionByCode(@PathVariable("code") String code) {
 		HashMap<String, String> map = new HashMap<>();
 		code = code.toUpperCase(); // na wypadek podania małego 'q'
-		Question question = NeptunDAO.findByCode(Question.class, code);
+		Question question = questionsRepository.findByCode(code);
 		map.put(question.getCode(), question.getAnswersCodes());
 		return map;
 	}
@@ -129,7 +135,6 @@ public class NeptunRestController {
 			}
 		
 		return fileContent;
-		
 	   
 	}
 
