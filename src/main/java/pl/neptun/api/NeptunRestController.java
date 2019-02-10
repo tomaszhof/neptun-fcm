@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import pl.neptun.jpa.NeptunDAO;
+
+import pl.neptun.jpa.AnswersRepository;
 import pl.neptun.jpa.QuestionsRepository;
 import pl.neptun.model.Answer;
 import pl.neptun.model.Question;
@@ -37,6 +38,9 @@ public class NeptunRestController {
 	@Autowired
 	private QuestionsRepository questionsRepository;
 	
+	@Autowired
+	private AnswersRepository answersRepository;
+	
 	Logger logger = LoggerFactory.getLogger(NeptunRestController.class);
 
 	@RequestMapping(path = "/answers", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,7 +48,7 @@ public class NeptunRestController {
 	public HashMap<String, String> getAllAnswers() {
 		HashMap<String, String> map = new HashMap<>();
 		// Get data from service layer into entityList.
-		List<Answer> entityList = NeptunDAO.findAll(Answer.class);
+		List<Answer> entityList = answersRepository.findAll();//NeptunDAO.findAll(Answer.class);
 
 		for (Answer ans : entityList) {
 			String code = ans.getCode();
@@ -66,7 +70,7 @@ public class NeptunRestController {
 	public HashMap<String, String> getAllQuestions() {
 		HashMap<String, String> map = new HashMap<>();
 		// Get data from service layer into entityList.
-		List<Question> entityList = NeptunDAO.findAll(Question.class);
+		List<Question> entityList = questionsRepository.findAll(); //NeptunDAO.findAll(Question.class);
 
 
 		for (Question que : entityList) {
@@ -110,7 +114,7 @@ public class NeptunRestController {
 		// dodaje do mapy odpowiedzi
 		for (String cd : codes) {
 			logger.debug("\nCode:" + cd + "\n");
-			Answer answer = NeptunDAO.findByCode(Answer.class, cd);
+			Answer answer = answersRepository.findByCode(cd); //NeptunDAO.findByCode(Answer.class, cd);
 			map.put(answer.getCode(), answer.getText());
 		}
 		return map;
