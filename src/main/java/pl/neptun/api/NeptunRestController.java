@@ -93,6 +93,7 @@ public class NeptunRestController {
 		HashMap<String, String> map = new HashMap<>();
 		code = code.toUpperCase(); // na wypadek podania małego 'q'
 		Question question = questionsRepository.findByCode(code);
+		logger.debug(code + " TEST" + question.getAnswersCodes());
 		map.put(question.getCode(), question.getAnswersCodes());
 		return map;
 	}

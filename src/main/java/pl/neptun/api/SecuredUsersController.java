@@ -28,9 +28,7 @@ final class SecuredUsersController {
 
 	@Autowired
 	private UsersRepository usersRepository;
-//
-//	@Autowired
-//	private TestResultsRepository testsResultsRepository;
+
 
 	@GetMapping("/all")
 	public List<User> retrieveAllUsers() {
