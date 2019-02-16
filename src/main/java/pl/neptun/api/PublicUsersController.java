@@ -4,12 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import pl.neptun.jpa.UsersRepository;
+import pl.neptun.model.TestResult;
 import pl.neptun.model.User;
 import pl.neptun.service.UserAuthenticationService;
 
@@ -53,8 +51,11 @@ final class PublicUsersController {
     @RequestParam("username") final String username,
     @RequestParam("password") final String password) {
 	  
-    if (authentication.login(username, password))
-    	return username;
+    if (authentication.login(username, password)){
+        User user = usersRepository.findTopByUsername(username);
+        return user.getId().toString();
+    }
+
     else return "NoTlOgEd";
   }
 }

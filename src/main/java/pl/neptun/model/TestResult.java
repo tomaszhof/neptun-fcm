@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.ArrayList;
 
 //import com.fasterxml.jackson.annotation.JsonCreator;
 //import com.fasterxml.jackson.annotation.JsonProperty;
@@ -29,9 +30,9 @@ public class TestResult {
 	@GeneratedValue
 	private Long id;
 
-	private String beforeAnswers;
+	private String beforeAnswers; //Phase 1
 
-	private String afterAnswers;
+	private String afterAnswers; //Phase 2
 
 	private Long shortestPath;
 
@@ -42,6 +43,7 @@ public class TestResult {
 	private Long maxDeviation;
 
 	private Long integralU;
+
 
 //	@ManyToOne
 //	@JoinColumn(name = "user_id", updatable=false, insertable=false)
@@ -111,6 +113,7 @@ public class TestResult {
 	public void setIntegralU(Long integralU) {
 		this.integralU = integralU;
 	}
+
 
 //	public User getUser() {
 //		return user;
