@@ -1,9 +1,6 @@
 package pl.neptun.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 
 //import com.fasterxml.jackson.annotation.JsonCreator;
@@ -30,8 +27,10 @@ public class TestResult {
 	@GeneratedValue
 	private Long id;
 
+	@Column(columnDefinition="text", length=10485760)
 	private String beforeAnswers; //Phase 1
 
+	@Column(columnDefinition="text", length=10485760)
 	private String afterAnswers; //Phase 2
 
 	private Long shortestPath;
