@@ -7,15 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import pl.neptun.jpa.AnswersRepository;
 import pl.neptun.jpa.QuestionsRepository;
 import pl.neptun.model.Answer;
+import pl.neptun.model.QAs;
 import pl.neptun.model.Question;
 
 import javax.transaction.Transactional;
@@ -119,6 +116,19 @@ public class NeptunRestController {
 			map.put(answer.getCode(), answer.getText());
 		}
 		return map;
+	}
+
+
+	@GetMapping(value = "/code")
+	@ResponseBody
+	public QAs getAllCodes(){
+		QAs qAs = new QAs();
+		qAs.setAnswers(answersRepository.findAll());
+		qAs.setQuestions(questionsRepository.findAll());
+
+
+
+		return qAs;
 	}
 
 	
